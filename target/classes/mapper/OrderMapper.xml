@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="OrderMapper">
+	<select id="getRst_id" resultType="_int">
+		select rst_id 
+		from menu m, menu_category mc 
+		where menu_id = #{menu_id} and m.category_id = mc.category_id
+	</select>
+	
+	<select id="isExistDifferentRst" resultType="_boolean">
+		select count(rst_id)
+		from cart c, menu m, menu_category mc 
+		where orderer = #{orderer} and c.menu_id = m.menu_id and m.category_id = mc.category_id and rst_id != #{rst_id}
+	</select>
+	<!-- <select id="isExistDifferentRst" resultType="_boolean">
+		select exists(
+			select 1
+			from cart c, menu m, menu_category mc 
+			where orderer = #{orderer} and c.menu_id = m.menu_id and m.category_id = mc.category_id and rst_id != #{rst_id}
+		)
+	</select> -->
+	
+	<select id="isExistItem" resultType="boolean">
+		select if(count(*) = 1, 1, 0)
+		from cart 
+		where orderer = #{orderer} and menu_id = #{menu_id}
+	</select>
+	
+	<insert id="insertCartItem">
+		insert into cart 
+		<choose>
+			<when test="isSelectOption==false">
+				values(#{orderer}, #{menu_id}, null, #{quantity})
+			</when>
+			<otherwise>
+				values(#{orderer}, #{menu_id}, selected_option_seq.nextval, #{quantity})
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<update id="insertCartItemOptions">
+		<foreach collection="array" item="options" open="insert all" close="select * from dual" separator=" ">
+			into selected_option
+			values(selected_option_seq.currval, #{options})
+		</foreach>
+	</update>
+	
+	<select id="getCartItems" resultType="_CartVO">
+		select * 
+		from cart 
+		where orderer = #{orderer}
+	</select>
+	
+	<delete id="deleteCartItem">
+		delete 
+		from cart 
+		where orderer = #{orderer} and menu_id = #{menu_id}
+	</delete>
+	
+	<update id="updateCartItem">
+		update cart 
+		set quantity = quantity + #{quantity} 
+		where orderer = #{orderer} and menu_id = #{menu_id}
+	</update>
+	
+	<delete id="cleanCart">
+		delete 
+		from cart 
+		where orderer = #{orderer}
+	</delete>
+	
+	<insert id="insertOrder_history">
+		insert into order_history 
+		values(#{order_number}, #{orderer}, #{destination}, #{coupon_id}, #{used_point}, #{payment_method}, systimestamp, #{order_request}, 1, null)
+	</insert>
+	
+	<insert id="insertOrder_detail">
+		insert into order_detail 
+			select #{order_number}, menu_id, bundle_id, quantity 
+			from cart 
+			where orderer = #{orderer}
+	</insert>
+	
+	<insert id="insertOrder_options">
+		insert into ordered_option 
+			select s.* 
+			from cart c, selected_option s 
+			where orderer = #{orderer} and c.bundle_id = s.bundle_id
+	</insert>
+	
+	<select id="isCancelable" resultType="_boolean">
+		select if(count(*) = 1, 1, 0)
+		from order_history
+		where order_number = #{order_number} and orderer = #{orderer} and order_status = 1
+	</select>
+	
+	<update id="cancelOrder">
+		update order_history 
+		set order_status = 0, reason_cancellation = #{reason_cancellation} 
+		where order_number = #{order_number}
+	</update>
+	
+	<select id="getOrderedItemList" resultType="OrderDetailVO">
+		select * 
+		from order_detail 
+		where order_number = #{order_number}
+	</select>
+	
+	<select id="getOrderHistory" resultType="OrderHistoryVO">
+		select * 
+		from order_history 
+		where order_number = #{order_number}
+	</select>
+	
+	<select id="getOrderList" resultType="OrderBasicInfoVO">
+		select * 
+		from (
+			select oh.order_number, order_status, rst.rst_id, rst_name, rst_logo, count(menu_name) as count, pay_date 
+			from order_history oh, order_detail od, menu m, menu_category mc, restaurant rst 
+			where orderer = #{orderer} and oh.order_number = od.order_number and od.menu_id = m.menu_id and m.category_id = mc.category_id and mc.rst_id = rst.rst_id 
+			group by oh.order_number, order_status, rst.rst_id, rst_name, rst_logo, pay_date 
+			order by oh.order_number desc
+		) 
+		<![CDATA[where rownum >= #{start} and rownum <= #{end}]]>
+	</select>
+	
+	<select id="getDelivery_tip" resultType="_int">
+		select delivery_tip 
+		from restaurant r, menu_category mc, menu m 
+		where menu_id = #{menu_id} and m.category_id = mc.category_id and mc.rst_id = r.rst_id
+	</select>
+	
+	<select id="getOrderedItems" resultType="String">
+		select distinct menu_name 
+		from menu m, order_detail od, order_history oh 
+		<if test="type=='review_number'">
+			, review r
+		</if>
+		<where>
+			<choose>
+				<when test="type=='review_number">
+					review_number = #{review_number} and r.order_number = oh.order_number and oh.order_number = od.order_number and od.menu_id = m.menu_id
+				</when>
+				<when test="type=='order_number">
+					oh.order_number = #{order_number} and oh.order_number = od.order_number and od.menu_id = m.menu_id
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="getSelectedOptions" resultType="OptionInfoVO">
+		select o.* 
+		from selected_option s, option_info o 
+		where bundle_id = #{bundle_id} and s.option_id = o.option_id
+	</select>
+	
+	<select id="getOrderedOptions" resultType="OptionInfoVO">
+		select o.* 
+		from ordered_option s, option_info o 
+		where bundle_id = #{bundle_id} and s.option_id = o.option_id
+	</select>
+</mapper>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="AdministratorMapper">
+	<select id="adminLogin" resultType="_boolean">
+		select if(count(*) = 1, 1, 0)
+		from administrator 
+		where admin_id=#{admin_id} and password=pkg_crypto.encrypt(#{password})
+	</select>
+</mapper>

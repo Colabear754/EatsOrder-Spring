@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+	<select id="checkOrderer" resultType="_boolean">
+		select if(count(*) = 1, 1, 0)
+		from order_history 
+		where order_number = #{order_number} and orderer = #{orderer}
+	</select>
+	
+	<insert id="writeReview">
+		insert into review 
+		values(review_index_seq.nextval, #{order_number}, sysdate, #{content}, #{photo1}, #{photo2}, #{photo3}, #{photo4}, #{photo5}, #{rating})
+	</insert>
+	
+	<select id="getReview" resultType="ReviewVO">
+		select * 
+		from review 
+		where review_number = #{review_number}
+	</select>
+	
+	<select id="checkReviewWriter" resultType="_boolean">
+		select if(count(*) = 1, 1, 0)
+		from review r, order_history oh 
+		where review_number = #{review_number} and r.order_number = oh.order_number and orderer = #{orderer}
+	</select>
+	
+	<select id="checkUpdatable" resultType="_boolean">
+		select if(count(*) = 1, 1, 0)
+		from review
+		<![CDATA[where sysdate - regist_date < 7]]>
+	</select>
+	
+	<update id="updateReview">
+		update review 
+		set content = #{content} 
+		where review_number = #{review_number}
+	</update>
+	
+	<delete id="deleteReview">
+		delete 
+		from review
+		where review_number = #{review_number}
+	</delete>
+	
+	<select id="getReviews" resultType="ReviewVO">
+		select a.* 
+		from (
+			select rownum r, b.* 
+			from (
+				select review.* 
+				from review 
+				where review_number in (
+					select review_number 
+					from v_review_to_rst 
+					where rst_id = #{rst_id} and review_number is not null
+				) 
+				<if test="onlyPhotoReview==true">
+					and photo1 is not null
+				</if>
+				order by review_number desc
+			) b
+		) a 
+		<![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="getReviewCount" resultType="_int">
+		select count(review_number) 
+		from review 
+		where review_number in (
+			select review_number 
+			from v_review_to_rst 
+			where rst_id = #{rst_id} and review_number is not null
+		)
+	</select>
+	
+	<select id="getReplyCount" resultType="_int">
+		select count(reply_number) 
+		from reply 
+		where review_number in (
+			select review_number 
+			from v_review_to_rst 
+			where rst_id = #{rst_id}
+		)
+	</select>
+	
+	<select id="getReplies" resultType="ReplyVO">
+		select * 
+		from reply 
+		where review_number in (
+			select review_number 
+			from v_review_to_rst 
+			where rst_id = #{rst_id}
+		) 
+		order by review_number desc
+	</select>
+	
+	<select id="getMyReviews" resultType="ReviewVO">
+		select * 
+		from (
+			select rownum rn, rv.* 
+			from review rv, order_history oh 
+			where rv.order_number = oh.order_number and oh.orderer = #{orderer}
+			order by rv.review_number desc
+		) 
+		<![CDATA[where rn >= ? and rn <= ?]]>
+	</select>
+	
+	<select id="getReviewWriter" resultType="String">
+		select orderer 
+		from review r, order_history oh 
+		where review_number = #{review_number} and r.order_number = oh.order_number
+	</select>
+	
+	<select id="getReviewRst" resultType="RestaurantVO">
+		select r.* 
+		from restaurant r, v_review_to_rst vrr 
+		where review_number = #{review_number} and vrr.rst_id = r.rst_id
+	</select>
+	
+	<select id="getReviewToWrite" resultType="OrderBasicInfoVO">
+		select oh.order_number, payment_status, rst.rst_id, rst_name, rst_logo, count(menu_name) as count, pay_date 
+		from review r, order_history oh, order_detail od, menu m, menu_category mc, restaurant rst 
+		where orderer = #{orderer} and oh.order_number = od.order_number and od.menu_id = m.menu_id and m.category_id = mc.category_id and mc.rst_id = rst.rst_id and r.order_number(+) = oh.order_number and 
+		<![CDATA[extract(day from systimestamp - pay_date) < 7]]>
+		and review_number is null 
+		group by oh.order_number, payment_status, rst.rst_id, rst_name, rst_logo, pay_date 
+		order by oh.order_number desc
+	</select>
+	
+	<select id="getOrderedMenu" resultType="String">
+		select menu_name 
+		from order_detail od, menu m 
+		where order_number = #{order_number} and od.menu_id = m.menu_id
+	</select>
+</mapper>

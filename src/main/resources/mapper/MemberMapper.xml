@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+	<select id="login" resultType="_boolean">
+		select if(count(*) = 1, 1, 0) 
+		from member_login 
+		where email = #{email} and password=pkg_crypto.encrypt(#{password})
+	</select>
+	
+	<select id="checkDuplicateMember" resultType="_boolean">
+		select if(count(*) = 1, 1, 0) 
+		from member_info
+		where ${filed} = #{data}
+	</select>
+	
+	<insert id="registInfo">
+		insert into member_info(email, phone, nickname, receive_marketing) 
+		values(#{email}, #{phone}, #{nickname}, #{receive_marketing});
+	</insert>
+	
+	<insert id="registLogin">
+		insert into member_login 
+		values(#{email}, pkg_crypto.encrypt(#{password}));
+	</insert>
+	
+	<update id="deleteLogin">
+		delete 
+		from member_login 
+		where email = #{email}
+	</update>
+	
+	<update id="updateWithdraw_date">
+		update member_info 
+		set withdraw_date = sysdate 
+		where email = #{email}
+	</update>
+	
+	<insert id="insertWithdrawMember">
+		insert into withdraw_member 
+		values(member_index_seq.nextval, #{email}, sysdate, #{reason_withdraw});
+	</insert>
+	
+	<update id="updateInfo">
+		update member_info 
+		set phone = #{phone}, nickname = #{nickname}, receive_marketing = #{receive_marketing} 
+		where email=#{email}
+	</update>
+	
+	<update id="updatePassword">
+		update member_login
+		set password = pkg_crypto.encrypt(#{password})
+		where email = #{email}
+	</update>
+	
+	<delete id="deleteMemberInfo">
+		delete 
+		from member_info 
+		<![CDATA[where trunc(sysdate) - withdraw_date > 30]]>
+	</delete>
+	
+	<select id="getMember" resultType="MemberVO">
+		select * 
+		from member_info 
+		where email = #{email}
+	</select>
+	
+	<select id="getNickname" resultType="String">
+		select nickname 
+		from member_info 
+		where email = #{email}
+	</select>
+	
+	<select id="findEmail" resultType="String">
+		select email 
+		from member_info 
+		where phone = #{phone} and withdraw_date is null
+	</select>
+	
+	<select id="checkValidMember" resultType="_boolean">
+		select if(count(*) = 1, 1, 0) 
+		from member_info 
+		where email = #{email} and phone = #{phone} and withdraw_date is null
+	</select>
+	
+	<update id="resetPassword">
+		update member_login 
+		set password = pkg_crypto.encrypt(#{password}) 
+		where email = #{email}
+	</update>
+	
+	<update id="updatePoint">
+		update member_info 
+		set point = point - #{used_point} + #{earned_point} 
+		where email = #{email}
+	</update>
+</mapper>
