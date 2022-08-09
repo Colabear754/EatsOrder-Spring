@@ -94,9 +94,9 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public ArrayList<ReviewVO> getMyReviews(HashMap<String, Object> map) {
+	public ArrayList<ReviewVO> getMyReviews(String orderer) {
 		// 내 리뷰 목록 조회
-		return mapper.getMyReviews(map);
+		return mapper.getMyReviews(orderer);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public HashMap<String, Object> getReviewToWrite(String orderer) {
+	public ArrayList<HashMap<String, Object>> getReviewToWrite(String orderer) {
 		// 작성 가능한 리뷰 목록 조회
 		return mapper.getReviewToWrite(orderer);
 	}

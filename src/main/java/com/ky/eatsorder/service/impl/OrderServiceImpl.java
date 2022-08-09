@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.ky.eatsorder.domain.menu.OptionInfoVO;
 import com.ky.eatsorder.domain.order.CartVO;
-import com.ky.eatsorder.domain.order.OrderBasicInfoVO;
 import com.ky.eatsorder.domain.order.OrderDetailVO;
 import com.ky.eatsorder.domain.order.OrderHistoryVO;
 import com.ky.eatsorder.mapper.OrderMapper;
@@ -141,9 +140,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public ArrayList<OrderBasicInfoVO> getOrderList(HashMap<String, Object> map) {
+	public ArrayList<HashMap<String, Object>> getOrderList(HashMap<String, Object> map) {
 		// 주문내역 목록 조회
 		return mapper.getOrderList(map);
+	}
+
+	@Override
+	public ArrayList<String> getMenu_name(String order_number) {
+		// 주문 번호에 해당하는 대표 메뉴 이름 조회
+		return mapper.getMenu_name(order_number);
 	}
 
 	@Override

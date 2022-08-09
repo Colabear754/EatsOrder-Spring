@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<style>
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+    </style>
+    <script src="https://kit.fontawesome.com/6cc0f3db28.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="../component/css/main_header_logAfter_style.css">
+    <script type="text/javascript" src="../component/js/main_header_script.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header_top">
+            <div class="logo"><a href="/EatsOrder/main/main.do"><img src="../component/img/Logo.png" alt="로고-아이콘"></a></div>
+            <ul class="icon_menu">
+	            <li><label><i class="fa-solid fa-heart fa"> MyPage</i></label>
+	                <ul>
+	                    <li><a href="/EatsOrder/member/favoriteRstList.do">찜 목록</a></li>
+	                    <li><a href="/EatsOrder/member/couponList.do">쿠폰함</a></li>
+	                    <li><a href="/EatsOrder/member/myReviewList.do">리뷰관리</a></li>
+	                    <li><a href="/EatsOrder/member/orderList.do">회원주문내역</a></li>
+	                    <li><a href="/EatsOrder/member/updateMemberForm.do">내 정보 수정</a></li>
+	                </ul>
+	            </li>
+	            <li><a href="/EatsOrder/member/cart.do" id="cart"><i class="fa-solid fa-cart-shopping fa"> Cart</i></a></li>
+	            <li><a href="/EatsOrder/member/logout.do"><i class="fa-solid fa-power-off fa"> Logout</i></a></li>
+	        </ul>
+        </div>
+    </header>
+</body>
+
+</html>

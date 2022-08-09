@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="OrderMapper">
+<mapper namespace="com.ky.eatsorder.mapper.OrderMapper">
 	<select id="getRst_id" resultType="_int">
 		select rst_id 
 		from menu m, menu_category mc 
@@ -21,7 +21,7 @@
 	</select> -->
 	
 	<select id="isExistItem" resultType="boolean">
-		select if(count(*) = 1, 1, 0)
+		select case when count(*) > 0 then 1 else 0 end result
 		from cart 
 		where orderer = #{orderer} and menu_id = #{menu_id}
 	</select>
@@ -45,7 +45,7 @@
 		</foreach>
 	</update>
 	
-	<select id="getCartItems" resultType="_CartVO">
+	<select id="getCartItems" resultType="CartVO">
 		select * 
 		from cart 
 		where orderer = #{orderer}
@@ -89,7 +89,7 @@
 	</insert>
 	
 	<select id="isCancelable" resultType="_boolean">
-		select if(count(*) = 1, 1, 0)
+		select case when count(*) > 0 then 1 else 0 end result
 		from order_history
 		where order_number = #{order_number} and orderer = #{orderer} and order_status = 1
 	</select>
@@ -112,7 +112,7 @@
 		where order_number = #{order_number}
 	</select>
 	
-	<select id="getOrderList" resultType="OrderBasicInfoVO">
+	<select id="getOrderList" resultType="HashMap">
 		select * 
 		from (
 			select oh.order_number, order_status, rst.rst_id, rst_name, rst_logo, count(menu_name) as count, pay_date 
@@ -122,6 +122,12 @@
 			order by oh.order_number desc
 		) 
 		<![CDATA[where rownum >= #{start} and rownum <= #{end}]]>
+	</select>
+	
+	<select id="getMenu_name" resultType="String">
+		select menu_name 
+		from order_detail od, menu m 
+		where order_number=#{order_number} and od.menu_id=m.menu_id
 	</select>
 	
 	<select id="getDelivery_tip" resultType="_int">

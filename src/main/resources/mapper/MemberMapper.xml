@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="MemberMapper">
+<mapper namespace="com.ky.eatsorder.mapper.MemberMapper">
 	<select id="login" resultType="_boolean">
-		select if(count(*) = 1, 1, 0) 
+		select case when count(*) > 0 then 1 else 0 end result
 		from member_login 
 		where email = #{email} and password=pkg_crypto.encrypt(#{password})
 	</select>
 	
 	<select id="checkDuplicateMember" resultType="_boolean">
-		select if(count(*) = 1, 1, 0) 
+		select case when count(*) > 0 then 1 else 0 end result
 		from member_info
-		where ${filed} = #{data}
+		where ${type} = #{data}
 	</select>
 	
 	<insert id="registInfo">
 		insert into member_info(email, phone, nickname, receive_marketing) 
-		values(#{email}, #{phone}, #{nickname}, #{receive_marketing});
+		values(#{email}, #{phone}, #{nickname}, #{receive_marketing})
 	</insert>
 	
 	<insert id="registLogin">
 		insert into member_login 
-		values(#{email}, pkg_crypto.encrypt(#{password}));
+		values(#{email}, pkg_crypto.encrypt(#{password}))
 	</insert>
 	
 	<update id="deleteLogin">
@@ -37,7 +37,7 @@
 	
 	<insert id="insertWithdrawMember">
 		insert into withdraw_member 
-		values(member_index_seq.nextval, #{email}, sysdate, #{reason_withdraw});
+		values(member_index_seq.nextval, #{email}, sysdate, #{reason_withdraw})
 	</insert>
 	
 	<update id="updateInfo">
@@ -58,7 +58,7 @@
 		<![CDATA[where trunc(sysdate) - withdraw_date > 30]]>
 	</delete>
 	
-	<select id="getMember" resultType="MemberVO">
+	<select id="getMember" resultType="MemberInfoVO">
 		select * 
 		from member_info 
 		where email = #{email}
@@ -77,7 +77,7 @@
 	</select>
 	
 	<select id="checkValidMember" resultType="_boolean">
-		select if(count(*) = 1, 1, 0) 
+		select case when count(*) > 0 then 1 else 0 end result
 		from member_info 
 		where email = #{email} and phone = #{phone} and withdraw_date is null
 	</select>
@@ -91,6 +91,19 @@
 	<update id="updatePoint">
 		update member_info 
 		set point = point - #{used_point} + #{earned_point} 
+		where email = #{email}
+	</update>
+	
+	<select id="checkOrderCount" resultType="_int">
+		select count(order_number)
+		from order_history
+		where email = #{email} and 
+		<![CDATA[trunc(sysdate) - to_date(trunc(pay_date)) <= 90]]>
+	</select>
+	
+	<update id="updateMembership">
+		update member_info
+		set membership = #{membership}
 		where email = #{email}
 	</update>
 </mapper>

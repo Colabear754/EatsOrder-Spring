@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="RestaurantMapper">
+<mapper namespace="com.ky.eatsorder.mapper.RestaurantMapper">
 	<select id="getRestaurant" resultType="RestaurantVO">
 		select * 
 		from restaurant 
@@ -71,13 +71,9 @@
 	</delete>
 	
 	<select id="getFavoriteRestaurants" resultType="RestaurantVO">
-		select * 
-		from (
-			select rownum r, rst.* 
-			from restaurant rst, favorite_restaurant fr 
-			where email = #{email} and rst.rst_id = fr.rst_id
-			) 
-		<![CDATA[where r >= #{start} and r <= #{end}]]>
+		select rst.* 
+		from restaurant rst, favorite_restaurant fr 
+		where email = #{email} and rst.rst_id = fr.rst_id
 	</select>
 	
 	<select id="getRating" resultType="_double">

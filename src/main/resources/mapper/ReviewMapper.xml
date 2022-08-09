@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="ReviewMapper">
+<mapper namespace="com.ky.eatsorder.mapper.ReviewMapper">
 	<select id="checkOrderer" resultType="_boolean">
 		select if(count(*) = 1, 1, 0)
 		from order_history 
@@ -95,14 +95,10 @@
 	</select>
 	
 	<select id="getMyReviews" resultType="ReviewVO">
-		select * 
-		from (
-			select rownum rn, rv.* 
-			from review rv, order_history oh 
-			where rv.order_number = oh.order_number and oh.orderer = #{orderer}
-			order by rv.review_number desc
-		) 
-		<![CDATA[where rn >= ? and rn <= ?]]>
+		select rv.* 
+		from review rv, order_history oh 
+		where rv.order_number = oh.order_number and oh.orderer = #{orderer}
+		order by rv.review_number desc
 	</select>
 	
 	<select id="getReviewWriter" resultType="String">
@@ -117,13 +113,12 @@
 		where review_number = #{review_number} and vrr.rst_id = r.rst_id
 	</select>
 	
-	<select id="getReviewToWrite" resultType="OrderBasicInfoVO">
-		select oh.order_number, payment_status, rst.rst_id, rst_name, rst_logo, count(menu_name) as count, pay_date 
+	<select id="getReviewToWrite" resultType="HashMap">
+		select oh.order_number, order_status, rst.rst_id, rst_name, rst_logo, pay_date 
 		from review r, order_history oh, order_detail od, menu m, menu_category mc, restaurant rst 
 		where orderer = #{orderer} and oh.order_number = od.order_number and od.menu_id = m.menu_id and m.category_id = mc.category_id and mc.rst_id = rst.rst_id and r.order_number(+) = oh.order_number and 
 		<![CDATA[extract(day from systimestamp - pay_date) < 7]]>
 		and review_number is null 
-		group by oh.order_number, payment_status, rst.rst_id, rst_name, rst_logo, pay_date 
 		order by oh.order_number desc
 	</select>
 	

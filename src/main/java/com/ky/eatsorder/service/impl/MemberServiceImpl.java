@@ -26,9 +26,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean checkDuplicateMember(HashMap<String, String> map) {
+	public boolean checkDuplicateMember(HashMap<String, String> param) {
 		// 회원 중복확인
-		boolean result = mapper.checkDuplicateMember(map);
+		boolean result = mapper.checkDuplicateMember(param);
 		System.out.println("중복확인 결과 : " + result);
 
 		return result;
@@ -71,18 +71,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int insertWithdrawMember(HashMap<String, String> map) {
+	public int insertWithdrawMember(HashMap<String, String> param) {
 		// 회원 탈퇴 3단계(탈퇴 회원 목록에 등록)
-		int result = mapper.insertWithdrawMember(map);
+		int result = mapper.insertWithdrawMember(param);
 		System.out.println("탈퇴 회원 등록 결과 : " + result);
 		
 		return result;
 	}
 
 	@Override
-	public int updateInfo(HashMap<String, Object> map) {
+	public int updateInfo(HashMap<String, Object> param) {
 		// 회원정보 수정
-		int result = mapper.updateInfo(map);
+		int result = mapper.updateInfo(param);
 		System.out.println("회원정보 수정 결과 : " + result);
 
 		return result;
@@ -125,9 +125,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean checkValidMember(MemberInfoVO member) {
+	public boolean checkValidMember(HashMap<String, String> param) {
 		// 유효한 회원인지 확인
-		return mapper.checkValidMember(member);
+		return mapper.checkValidMember(param);
 	}
 
 	@Override
@@ -140,11 +140,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int updatePoint(HashMap<String, Object> map) {
+	public int updatePoint(HashMap<String, Object> param) {
 		// 회원 포인트 수정
-		int result = mapper.updatePoint(map);
+		int result = mapper.updatePoint(param);
 		System.out.println("회원 포인트 수정 결과 : " + result);
 
 		return result;
+	}
+
+	@Override
+	public int checkOrderCount(String email) {
+		// 90일 이내의 주문 회수 확인
+		return mapper.checkOrderCount(email);
+	}
+
+	@Override
+	public int updateMembership(HashMap<String, String> param) {
+		// 멤버십 등급 업데이트
+		return mapper.updateMembership(param);
 	}
 }

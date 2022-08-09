@@ -1,11 +1,11 @@
 package com.ky.eatsorder.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ky.eatsorder.domain.coupon.CouponDetailVO;
 import com.ky.eatsorder.domain.coupon.OwnedCouponVO;
 import com.ky.eatsorder.mapper.CouponMapper;
 import com.ky.eatsorder.service.CouponService;
@@ -32,7 +32,7 @@ public class CouponServiceImpl implements CouponService {
 	}
 
 	@Override
-	public ArrayList<CouponDetailVO> getCoupons(String owner_id) {
+	public ArrayList<HashMap<String, Object>> getCoupons(String owner_id) {
 		// 쿠폰 목록 조회
 		return mapper.getCoupons(owner_id);
 	}

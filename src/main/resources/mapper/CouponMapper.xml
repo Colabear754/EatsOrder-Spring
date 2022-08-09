@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="CouponMapper">
+<mapper namespace="com.ky.eatsorder.mapper.CouponMapper">
 	<select id="checkAvailableCoupon" resultType="_boolean">
-		select if(count(v.*) = 1, 1, 0) 
+		select case when count(*) > 0 then 1 else 0 end result
 		from valid_coupon v, owned_coupon o 
 		where v.coupon_id=o.coupon_id and o.coupon_id=#{coupon_id} and owner_id=#{owner_id} and 
 		<![CDATA[available_count > 0]]>
@@ -14,7 +14,7 @@
 		where coupon_id=#{coupon_id} and owner_id=#{owner_id}
 	</update>
 	
-	<select id="getCoupons" resultType="CouponDetailVO">
+	<select id="getCoupons" resultType="HashMap">
 		select v.*, o.available_count 
 		from valid_coupon v, owned_coupon o 
 		where v.coupon_id=o.coupon_id and o.owner_id=#{owner_id} and 

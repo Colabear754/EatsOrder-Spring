@@ -53,9 +53,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public ArrayList<RestaurantVO> getFavoriteRestaurants(HashMap<String, Object> map) {
+	public ArrayList<RestaurantVO> getFavoriteRestaurants(String email) {
 		// 찜한 매장 목록 조회
-		return mapper.getFavoriteRestaurants(map);
+		return mapper.getFavoriteRestaurants(email);
 	}
 
 	@Override

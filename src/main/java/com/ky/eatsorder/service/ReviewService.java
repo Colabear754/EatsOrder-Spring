@@ -19,9 +19,9 @@ public interface ReviewService {
 	public int getReviewCount(int rst_id);
 	public int getReplyCount(int rst_id);
 	public ArrayList<ReplyVO> getReplies(int rst_id);
-	public ArrayList<ReviewVO> getMyReviews(HashMap<String, Object> map);
+	public ArrayList<ReviewVO> getMyReviews(String orderer);
 	public String getReviewWriter(int review_number);
 	public RestaurantVO getReviewRst(int review_number);
-	public HashMap<String, Object> getReviewToWrite(String orderer);
+	public ArrayList<HashMap<String, Object>> getReviewToWrite(String orderer);
 	public ArrayList<String> getOrderedMenu(String order_number);
 }
