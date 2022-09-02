@@ -8,6 +8,7 @@
 		<put-attribute name="header_style" value="/resources/tiles/css/main_header_style.css" />
 		<put-attribute name="mypage_style" value="" />
 		<put-attribute name="css" value="" />
+		<put-attribute name="footer_style" value="/resources/tiles/css/footer_style.css" />
 		<put-attribute name="js" value="" />
 		<put-attribute name="header" value="/WEB-INF/views/tiles/main_header.jsp" />
 		<put-attribute name="mypage_side" value="" />
@@ -157,5 +158,85 @@
 		<put-attribute name="js" value="/resources/member/js/myReviewList.js" />
 		<put-attribute name="mypage_side" value="/WEB-INF/views/tiles/mypage.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/member/reviewlist.jsp" />
+	</definition>
+	
+	<!-- 관리자 페이지 메인 -->
+	<definition name="admin/main" extends="base">
+		<put-attribute name="title" value="관리자 페이지" />
+		<put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css" />
+		<put-attribute name="css" value="/resources/admin/css/admin_main.css" />
+		<put-attribute name="footer_style" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/admin_main.jsp" />
+		<put-attribute name="footer" value="" />
+	</definition>
+	
+	<!-- 관리자 페이지 로그인 -->
+	<definition name="admin/login" extends="base">
+		<put-attribute name="title" value="관리자 페이지" />
+		<put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css" />
+		<put-attribute name="css" value="/resources/admin/css/login_style.css" />
+		<put-attribute name="footer_style" value="" />
+		<put-attribute name="js" value="/resources/admin/js/login_script.js" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/admin_login.jsp" />
+		<put-attribute name="footer" value="" />
+	</definition>
+	
+	<!-- 관리자 로그인 결과 -->
+	<definition name="admin/loginCheck" template="/WEB-INF/views/component/check.jsp" />
+	
+	<!-- 관리자 페이지 공지 목록 -->
+	<definition name="admin/noticelist" extends="base">
+		<put-attribute name="title" value="관리자 페이지" />
+		<put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css" />
+		<put-attribute name="css" value="/resources/admin/css/noticelist.css" />
+		<put-attribute name="footer_style" value="" />
+		<put-attribute name="js" value="/resources/admin/js/noticelist_script.js" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/noticelist.jsp" />
+		<put-attribute name="footer" value="" />
+	</definition>
+	
+	<!-- 관리자 페이지 공지 내용 -->
+	<definition name="admin/notice" extends="base">
+		<put-attribute name="title" value="관리자 페이지" />
+		<put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css" />
+		<put-attribute name="css" value="/resources/admin/css/noticewrite.css?ver=5" />
+		<put-attribute name="footer_style" value="" />
+		<put-attribute name="js" value="/resources/admin/js/noticeContent.js?ver=1" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/notice.jsp" />
+		<put-attribute name="footer" value="" />
+	</definition>
+	
+	<!-- 관리자 페이지 공지 작성 -->
+	<definition name="admin/write_notice" extends="base">
+		<put-attribute name="title" value="관리자 페이지" />
+		<put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css" />
+		<put-attribute name="css" value="/resources/admin/css/noticewrite.css" />
+		<put-attribute name="footer_style" value="" />
+		<put-attribute name="js" value="/resources/admin/js/noticeWriteForm.js" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/write_notice.jsp" />
+		<put-attribute name="footer" value="" />
+	</definition>
+	
+	<!-- 관리자 페이지 공지 작성 결과 -->
+	<definition name="admin/write_process" template="/WEB-INF/views/component/check.jsp" />
+	
+	<!-- 관리자 페이지 공지 삭제 -->
+	<definition name="admin/delete_notice" template="/WEB-INF/views/component/check.jsp" />
+	
+	<!-- 관리자 페이지 공지 수정 -->
+	<definition name="admin/update_notice" extends="base">
+		<put-attribute name="title" value="관리자 페이지" />
+		<put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css" />
+		<put-attribute name="css" value="/resources/admin/css/noticewrite.css" />
+		<put-attribute name="footer_style" value="" />
+		<put-attribute name="js" value="/resources/admin/js/noticeWriteForm.js" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/update_notice.jsp" />
+		<put-attribute name="footer" value="" />
 	</definition>
 </tiles-definitions>

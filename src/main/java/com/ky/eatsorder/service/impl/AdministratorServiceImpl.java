@@ -14,9 +14,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 	private AdministratorMapper mapper;
 	
 	@Override
-	public boolean adminLogin(AdministratorVO admin) {
+	public boolean login(AdministratorVO admin) {
 		// 관리자 로그인
-		boolean result = mapper.adminLogin(admin);
+		boolean result = mapper.login(admin);
 		System.out.println("관리자 로그인 결과 : " + result);
 		
 		return result;

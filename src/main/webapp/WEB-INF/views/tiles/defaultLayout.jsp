@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="${contextpath}<tiles:getAsString name="header_style" />">
 	<link rel="stylesheet" href="${contextpath}<tiles:getAsString name="mypage_style" />">
 	<link rel="stylesheet" href="${contextpath}<tiles:getAsString name="css" />">
-	<link rel="stylesheet" href="${contextpath}/resources/tiles/css/footer_style.css">
+	<link rel="stylesheet" href="${contextpath}<tiles:getAsString name="footer_style" />">
 	<script type="text/javascript" src='${contextpath}<tiles:getAsString name="js" />'></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="https://kit.fontawesome.com/6cc0f3db28.js" crossorigin="anonymous"></script>

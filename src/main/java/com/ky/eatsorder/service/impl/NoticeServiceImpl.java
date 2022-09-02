@@ -15,15 +15,6 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
 	private NoticeMapper mapper;
-	
-	@Override
-	public int getNoticeCount() {
-		// 전체 공지 개수
-		int result = mapper.getNoticeCount();
-		System.out.println("전체 공지 개수 : " + result);
-		
-		return result;
-	}
 
 	@Override
 	public int getNoticeSearchCount(HashMap<String, Object> map) {
@@ -35,15 +26,9 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public ArrayList<NoticeVO> getNotices(HashMap<String, Integer> map) {
-		// 공지 목록
-		return mapper.getNotices(map);
-	}
-
-	@Override
-	public ArrayList<NoticeVO> getSearchNotices(HashMap<String, Object> map) {
+	public ArrayList<NoticeVO> getSearchNoticeList(HashMap<String, Object> map) {
 		// 검색된 공지 목록
-		return mapper.getSearchNotices(map);
+		return mapper.getSearchNoticeList(map);
 	}
 
 	@Override
