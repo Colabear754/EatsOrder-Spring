@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.ky.eatsorder.domain.etc_classes.RestaurantDetailInfo;
 import com.ky.eatsorder.domain.etc_classes.ReviewDetailInfo;
@@ -49,7 +51,7 @@ public class MemberController {
 	private ReviewMapper reviewDao;
 
 	@RequestMapping("/login")
-	public String login(Locale locale, Model model) {
+	public String login(Locale locale) {
 		// 로그인 페이지
 		LOGGER.info("로그인 페이지 접속! 클라이언트 위치 : {}.", locale);
 
@@ -57,13 +59,12 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/loginCheck", method = RequestMethod.POST)
-	public String loginCheck(HttpServletRequest request, Model model) {
+	public String loginCheck(@ModelAttribute MemberLoginVO member, HttpSession session, Model model) {
 		// 로그인 처리
-		MemberLoginVO member = new MemberLoginVO(request.getParameter("account"), request.getParameter("password"));
 		boolean result = memberDao.login(member);
 
 		if (result) {
-			request.getSession().setAttribute("eatsorder_uid", member.getEmail());
+			session.setAttribute("eatsorder_uid", member.getEmail());
 		}
 
 		LOGGER.info("로그인 결과 : {}.", result);
@@ -75,7 +76,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		// 로그아웃
-		request.getSession().invalidate();
+		request.getSession().removeAttribute("eatsorder_uid");
 
 		return "redirect:" + request.getHeader("Referer");
 	}
@@ -89,27 +90,27 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/check_for_duplicate", method = RequestMethod.POST)
-	public String check_for_duplicate(@RequestParam HashMap<String, String> param, Model model) {
+	public String check_for_duplicate(@RequestParam HashMap<String, String> params, Model model) {
 		// 중복 확인
-		boolean result = memberDao.checkDuplicateMember(param);
+		boolean result = memberDao.checkDuplicateMember(params);
 
-		LOGGER.info("{} 중복확인 결과 : {}.", param.get("type"), result ? "중복" : "사용가능");
+		LOGGER.info("{} 중복확인 결과 : {}.", params.get("type"), result ? "중복" : "사용가능");
 		model.addAttribute("result", result);
 
 		return "member/check_for_duplicate";
 	}
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String regist(@RequestParam HashMap<String, Object> param, Model model) {
+	public String regist(@RequestParam HashMap<String, Object> params, Model model) {
 		// 회원가입
-		if (((String) param.get("phone")).indexOf("-") < 0) { // 전화번호에 하이픈(-)이 없는 형식일 경우 하이픈을 넣음
-			param.put("phone", ((String) param.get("phone")).replaceAll("(\\d{3})(\\d{3,4})(\\d{4})", "$1-$2-$3"));
+		if (((String) params.get("phone")).indexOf("-") < 0) { // 전화번호에 하이픈(-)이 없는 형식일 경우 하이픈을 넣음
+			params.put("phone", ((String) params.get("phone")).replaceAll("(\\d{3})(\\d{3,4})(\\d{4})", "$1-$2-$3"));
 		}
 
-		MemberInfoVO info = new MemberInfoVO((String) param.get("email"), (String) param.get("nickname"),
-				(String) param.get("phone"), null, 0, null, null,
-				Boolean.parseBoolean((String) param.get("receive_marketing")) ? 1 : 0); // 회원 정보
-		MemberLoginVO login = new MemberLoginVO((String) param.get("email"), (String) param.get("password")); // 로그인 정보
+		MemberInfoVO info = new MemberInfoVO((String) params.get("email"), (String) params.get("nickname"),
+				(String) params.get("phone"), null, 0, null, null,
+				Boolean.parseBoolean((String) params.get("receive_marketing")) ? 1 : 0); // 회원 정보
+		MemberLoginVO login = new MemberLoginVO((String) params.get("email"), (String) params.get("password")); // 로그인 정보
 		int result = -1;
 
 		if (memberDao.registInfo(info) > 0) {
@@ -123,13 +124,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("/update_account")
-	public String update_account(HttpServletRequest request, Model model) {
+	public String update_account(@SessionAttribute(name = "eatsorder_uid", required = false) String email, Model model) {
 		// 회원정보 수정 페이지
-		if (request.getSession().getAttribute("eatsorder_uid") == null) {
-			return "redirect:/eatsorder/main";
+		if (email == null) {
+			return "redirect:/main";
 		}
 		
-		String email = (String) request.getSession().getAttribute("eatsorder_uid");
+//		String email = (String) request.getSession().getAttribute("eatsorder_uid");
 		MemberInfoVO member = memberDao.getMember(email);
 		int coupon_count = couponDao.getCouponCount(email);
 
@@ -140,23 +141,23 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@RequestParam HashMap<String, Object> param, Model model) {
+	public String update(@RequestParam HashMap<String, Object> params, Model model) {
 		// 회원정보 수정
-		if (((String) param.get("phone")).indexOf("-") < 0) { // 전화번호에 하이픈(-)이 없는 형식일 경우 하이픈을 넣음
-			param.put("phone", ((String) param.get("phone")).replaceAll("(\\d{3})(\\d{3,4})(\\d{4})", "$1-$2-$3"));
+		if (((String) params.get("phone")).indexOf("-") < 0) { // 전화번호에 하이픈(-)이 없는 형식일 경우 하이픈을 넣음
+			params.put("phone", ((String) params.get("phone")).replaceAll("(\\d{3})(\\d{3,4})(\\d{4})", "$1-$2-$3"));
 		}
 		
-		param.put("receive_marketing", Boolean.parseBoolean((String) param.get("receive_marketing")) ? 1 : 0);
+		params.put("receive_marketing", Boolean.parseBoolean((String) params.get("receive_marketing")) ? 1 : 0);
 		
 		int result = -1;
 
-		if (memberDao.login(new MemberLoginVO((String) param.get("email"), (String) param.get("password")))) {
-			if (((String) param.get("newPassword")).isBlank()) {
-				result = memberDao.updateInfo(param);
+		if (memberDao.login(new MemberLoginVO((String) params.get("email"), (String) params.get("password")))) {
+			if (((String) params.get("newPassword")).isBlank()) {
+				result = memberDao.updateInfo(params);
 			} else {
-				if (memberDao.updateInfo(param) > 0) {
+				if (memberDao.updateInfo(params) > 0) {
 					result = memberDao.updatePassword(
-							new MemberLoginVO((String) param.get("email"), (String) param.get("newPassword")));
+							new MemberLoginVO((String) params.get("email"), (String) params.get("newPassword")));
 				}
 			}
 		}
@@ -188,9 +189,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/check_member")
-	public String check_member(@RequestParam HashMap<String, String> param, Model model) {
+	public String check_member(@RequestParam HashMap<String, String> params, Model model) {
 		// 유효한 회원인지 확인한 결과
-		boolean result = memberDao.checkValidMember(param);
+		boolean result = memberDao.checkValidMember(params);
 		
 		LOGGER.info("유효한 회원 여부 : {}.", result);
 		model.addAttribute("result", result);
@@ -202,7 +203,7 @@ public class MemberController {
 	public String reset_password(@RequestParam String email, Model model) {
 		// 비밀번호 재설정 페이지
 		if (email == null || email.isBlank()) {
-			return "redirect:/eatsorder/main";
+			return "redirect:/main";
 		}
 		
 		model.addAttribute("email", email);
@@ -221,27 +222,27 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/delete_account")
-	public String delete_account(HttpServletRequest request, Model model) {
+	public String delete_account(@SessionAttribute(name = "eatsorder_uid", required = false) String email, Model model) {
 		// 회원탈퇴 페이지
-		if (request.getSession().getAttribute("eatsorder_uid") == null) {
-			return "redirect:/eatsorder/main";
+		if (email == null) {
+			return "redirect:/main";
 		}
 		
-		model.addAttribute("email", request.getSession().getAttribute("eatsorder_uid"));
+		model.addAttribute("email", email);
 		
 		return "member/delete_account";
 	}
 	
 	@RequestMapping(value = "/withdraw", method = RequestMethod.POST) 
-	public String withdraw(@RequestParam HashMap<String, String> param, Model model) {
+	public String withdraw(@RequestParam HashMap<String, String> params, Model model) {
 		// 회원탈퇴
 		int result = -1;
-		String email = param.get("email");
+		String email = params.get("email");
 		
-		if (memberDao.login(new MemberLoginVO(email, param.get("password")))) {
+		if (memberDao.login(new MemberLoginVO(email, params.get("password")))) {
 			if (memberDao.deleteLogin(email) > 0) {
 				if (memberDao.updateWithdraw_date(email) > 0) {
-					result = memberDao.insertWithdrawMember(param);
+					result = memberDao.insertWithdrawMember(params);
 				}
 			}
 		}
@@ -253,14 +254,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("/orderlist")
-	public String orderlist(HttpServletRequest request, Model model) throws SQLException {
+	public String orderlist(@SessionAttribute(name = "eatsorder_uid", required = false) String email, @RequestParam HashMap<String, String> params, Model model) throws SQLException {
 		// 주문내역
-		if (request.getSession().getAttribute("eatsorder_uid") == null) {
-			return "redirect:/eatsorder/main";
+		if (email == null) {
+			return "redirect:/main";
 		}
 		
-		String pageNum = request.getParameter("pageNum");
-		String email = (String) request.getSession().getAttribute("eatsorder_uid");
+		String pageNum = params.get("pageNum");
 		MemberInfoVO member = memberDao.getMember(email);
 		int coupon_count = couponDao.getCouponCount(email);
 
@@ -303,13 +303,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/couponlist")
-	public String couponlist(HttpServletRequest request, Model model) {
+	public String couponlist(@SessionAttribute(name = "eatsorder_uid", required = false) String email, Model model) {
 		// 쿠폰함
-		if (request.getSession().getAttribute("eatsorder_uid") == null) {
-			return "redirect:/eatsorder/main";
+		if (email == null) {
+			return "redirect:/main";
 		}
 		
-		String email = (String) request.getSession().getAttribute("eatsorder_uid");
 		MemberInfoVO member = memberDao.getMember(email);
 		int coupon_count = couponDao.getCouponCount(email);
 		ArrayList<HashMap<String, Object>> coupon_list = couponDao.getCoupons(email);
@@ -322,13 +321,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/favorite_rst")
-	public String favorite_rst(HttpServletRequest request, Model model) {
+	public String favorite_rst(@SessionAttribute(name = "eatsorder_uid", required = false) String email, Model model) {
 		// 찜매장 목록
-		if (request.getSession().getAttribute("eatsorder_uid") == null) {
-			return "redirect:/eatsorder/main";
+		if (email == null) {
+			return "redirect:/main";
 		}
 		
-		String email = (String) request.getSession().getAttribute("eatsorder_uid");
 		ArrayList<RestaurantDetailInfo> favorite_rst = new ArrayList<>();
 		ArrayList<RestaurantVO> rstList = rstDao.getFavoriteRestaurants(email);
 		MemberInfoVO member = memberDao.getMember(email);
@@ -347,13 +345,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/reviewlist")
-	public String reviewlist(HttpServletRequest request, Model model) throws SQLException {
+	public String reviewlist(@SessionAttribute(name = "eatsorder_uid", required = false) String email, Model model) throws SQLException {
 		// 내 리뷰 목록
-		if (request.getSession().getAttribute("eatsorder_uid") == null) {
-			return "redirect:/eatsorder/main";
+		if (email == null) {
+			return "redirect:/main";
 		}
 
-		String email = (String) request.getSession().getAttribute("eatsorder_uid");
 		MemberInfoVO member = memberDao.getMember(email);
 		int coupon_count = couponDao.getCouponCount(email);
 		ArrayList<ReviewDetailInfo> reviewData = new ArrayList<>();
