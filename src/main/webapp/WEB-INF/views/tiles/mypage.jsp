@@ -1,8 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:if test="${eatsorder_uid == null}">
-	<meta http-equiv="Refresh" content="0;url=/eatsorder/main">
-</c:if>
 <h2 class="mypage_head">마이페이지</h2>
 <div class="mypage_wrap">
 	<div class="profile_box">
