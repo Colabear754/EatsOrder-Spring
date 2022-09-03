@@ -4,19 +4,24 @@ body {
 	margin: 0;
 }
 
+main {
+    padding-bottom: 200px;
+}
+
 .hover{
 	background:#FECB10;
 	color:red;
 	cursor:pointer;
 	font-weight:bold;
 }
-main a:link{
-    color:black;
-}
 
 .title_hover {
 	color: #FECB10;
 	font-weight:bold;
+}
+
+main a:link{
+    color:black;
 }
 
 main ul.tabs{
