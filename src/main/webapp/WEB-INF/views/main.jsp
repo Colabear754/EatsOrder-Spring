@@ -10,7 +10,7 @@
                     <div id="address-modal">
 						<div id="wrapper"></div>
 					</div>
-                    <form class="search_box" action="/eatsorder/restaurant/rstlist" method="get">
+                    <form class="search_box" action="/eatsorder/restaurant/list" method="get">
                         <div>
                             <i class="fa-solid fa-location-dot"></i>
                             <input type="text" name="address" id="address" placeholder="클릭해서 주소를 선택해주세요 (필수입력)" readonly="readonly">
