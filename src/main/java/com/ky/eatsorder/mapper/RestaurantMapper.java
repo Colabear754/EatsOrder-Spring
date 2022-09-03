@@ -7,7 +7,7 @@ import com.ky.eatsorder.domain.restaurant.RestaurantVO;
 
 public interface RestaurantMapper {
 	public RestaurantVO getRestaurant(int rst_id);
-	public ArrayList<RestaurantVO> getRestaurants(HashMap<String, Object> map);
+	public ArrayList<RestaurantVO> getRestaurantList(HashMap<String, Object> map);
 	public boolean isFavorite(HashMap<String, Object> map);
 	public int registFavoriteRestaurant(HashMap<String, Object> map);
 	public int removeFavoriteRestaurant(HashMap<String, Object> map);

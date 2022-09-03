@@ -23,9 +23,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public ArrayList<RestaurantVO> getRestaurants(HashMap<String, Object> map) {
+	public ArrayList<RestaurantVO> getRestaurantList(HashMap<String, Object> map) {
 		// 식당 목록 조회
-		return mapper.getRestaurants(map);
+		return mapper.getRestaurantList(map);
 	}
 
 	@Override
