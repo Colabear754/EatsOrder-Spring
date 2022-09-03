@@ -7,7 +7,7 @@
 		where rst_id = #{rst_id}
 	</select>
 	
-	<select id="getRestaurants" resultType="RestaurantVO">
+	<select id="getRestaurantList" resultType="RestaurantVO">
 		select a.* 
 		from (
 			select rownum r, b.* 
@@ -16,16 +16,16 @@
 				<when test="orderBy==2">
 					select rst.* 
 					from restaurant rst, delivery_zone dz, v_rst_rating vrr 
-					where rst.rst_id = vrr.rst_id and rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname}
+					where rst.rst_id = vrr.rst_id and rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname} and rst_name like '%'||#{searchText}||'%'
 					<if test="category_id>0">
 						and category_id = #{category_id}
-					</if>  
+					</if>
 					order by avg_rating desc) b) a
 				</when>
 				<when test="orderBy==3">
 					select rst.* 
 					from restaurant rst, delivery_zone dz, v_rst_review_count vrrc 
-					where rst.rst_id = vrrc.rst_id and rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname}
+					where rst.rst_id = vrrc.rst_id and rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname} and rst_name like '%'||#{searchText}||'%'
 					<if test="category_id>0">
 						and category_id = #{category_id}
 					</if> 
@@ -34,7 +34,7 @@
 				<when test="orderBy==4">
 					select rst.* 
 					from restaurant rst, delivery_zone dz 
-					where rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname}
+					where rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname} and rst_name like '%'||#{searchText}||'%'
 					<if test="category_id>0">
 						and category_id = #{category_id}
 					</if> 
@@ -43,7 +43,7 @@
 				<otherwise>
 					select rst.* 
 					from restaurant rst, delivery_zone dz 
-					where rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname}) b
+					where rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname} and rst_name like '%'||#{searchText}||'%') b
 					<if test="category_id>0">
 						and category_id = #{category_id}
 					</if> 
