@@ -222,9 +222,6 @@
 		<put-attribute name="footer" value="" />
 	</definition>
 	
-	<!-- 관리자 페이지 공지 작성 결과 -->
-	<definition name="admin/write_process" template="/WEB-INF/views/component/check.jsp" />
-	
 	<!-- 관리자 페이지 공지 삭제 -->
 	<definition name="admin/delete_notice" template="/WEB-INF/views/component/check.jsp" />
 	
@@ -239,4 +236,21 @@
 		<put-attribute name="body" value="/WEB-INF/views/admin/update_notice.jsp" />
 		<put-attribute name="footer" value="" />
 	</definition>
+	
+	<!-- 공지 목록 -->
+	<definition name="notice/noticelist" extends="base">
+		<put-attribute name="title" value="이벤트/공지사항" />
+		<put-attribute name="css" value="/resources/notice/css/noticelist.css?ver=1" />
+		<put-attribute name="body" value="/WEB-INF/views/notice/noticelist.jsp" />
+		<put-attribute name="js" value="/resources/notice/js/noticelist_script.js" />
+	</definition>
+	
+	<!-- 공지 내용 -->
+	<definition name="notice/notice" extends="base">
+		<put-attribute name="title" value="이벤트/공지사항" />
+		<put-attribute name="css" value="/resources/notice/css/noticewrite.css?ver=1" />
+		<put-attribute name="js" value="/resources/notice/js/noticeContent.js" />
+		<put-attribute name="body" value="/WEB-INF/views/notice/notice.jsp" />
+	</definition>
+	
 </tiles-definitions>
