@@ -30,7 +30,7 @@ import com.ky.eatsorder.mapper.NoticeMapper;
 @Controller
 @RequestMapping("/admin/*")
 public class AdministratorController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdministratorController.class);
 
 	@Autowired
 	AdministratorMapper adminDao;

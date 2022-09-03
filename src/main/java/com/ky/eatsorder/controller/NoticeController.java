@@ -17,7 +17,7 @@ import com.ky.eatsorder.mapper.NoticeMapper;
 @Controller
 @RequestMapping("/notice/*")
 public class NoticeController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(NoticeController.class);
 
 	@Autowired
 	private NoticeMapper noticeDao;
