@@ -53,8 +53,8 @@ $(function() {
 		if ($('#address').val() != '') {
 			// 폼 생성 및 속성 설정
 			var newForm = $('<form></form>');
-			newForm.attr('method', 'post');
-			newForm.attr('action', '/EatsOrder/restaurant/rstList.do');
+			newForm.attr('method', 'get');
+			newForm.attr('action', '/eatsorder/restaurant/list');
 			// 폼에 항목 추가
 			newForm.append($('<input>', {type: 'hidden', name: 'category_id', value: $(this).attr('id')}));
 			newForm.append($('<input>', {type: 'hidden', name: 'address', value: $('#address').val()}));
