@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="outer-grid">
-	<br> <b style="text-align: center;">글 상세보기</b> <br>
+	<br> <b style="text-align: center;">공지사항/이벤트</b> <br>
 	<form>
 		<input type="hidden" id="notice_number" value="${notice.notice_number}">
 		<input type="hidden" id="pre_category" value="${pre_category}">
@@ -38,11 +38,11 @@
 				<c:if test="${notice.filename != null}">
 					<tr>
 						<td colspan="2" class="td2 center" style="text-align: center;">
-							<img src="/eatsorder/resources/notice/img/${notice.filename}" alt="예시1">
+							<img src="/eatsorder/resources/notice/img/${notice.filename}" alt="${notice.filename}">
 						</td>
 					</tr>
 					<tr>
-						<td class="td1 subject">파일명</td>
+						<td class="td1 subject">첨부파일</td>
 						<td class="td2">${notice.filename}</td>
 					</tr>
 				</c:if>

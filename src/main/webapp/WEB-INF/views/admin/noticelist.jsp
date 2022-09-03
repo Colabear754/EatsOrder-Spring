@@ -61,8 +61,8 @@
 		</c:if>           
 	</div>
 	<div class="numbering">
-		<c:if test="${startPage > paging.blockSize}">
-			<a href="/eatsorder/admin/noticelist?pageNum=${startPage - paging.blockSize}&type=${type}&data=${data}&category=${category}">[이전]</a>
+		<c:if test="${startPage > blockSize}">
+			<a href="/eatsorder/admin/noticelist?pageNum=${startPage - blockSize}&type=${type}&data=${data}&category=${category}">[이전]</a>
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}">
 			<a href="/eatsorder/admin/noticelist?pageNum=${i}&type=${type}&data=${data}&category=${category}">
@@ -74,8 +74,8 @@
 				</c:if>
 			</a>
 		</c:forEach>
-		<c:if test="${endPage < paging.pageCount}">
-			<a href="/eatsorder/admin/noticelist?pageNum=${startPage + paging.blockSize}&type=${type}&data=${data}&category=${category}">[다음]</a> 
+		<c:if test="${endPage < pageCount}">
+			<a href="/eatsorder/admin/noticelist?pageNum=${startPage + blockSize}&type=${type}&data=${data}&category=${category}">[다음]</a> 
 		</c:if>
 	</div>
 </div>
