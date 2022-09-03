@@ -121,6 +121,8 @@ public class AdministratorController {
 		map.put("end", endRow);
 
 		ArrayList<NoticeVO> noticeList = noticeDao.getSearchNoticeList(map);
+		
+		LOGGER.info("관리자 공지 목록 페이지 접속!");
 
 		model.addAttribute("type", type);
 		model.addAttribute("data", data);
@@ -150,6 +152,8 @@ public class AdministratorController {
 		
 		NoticeVO notice = noticeDao.getNotice(notice_number);
 		
+		LOGGER.info("관리자 페이지 현재 공지 번호 : {}.", notice_number);
+		
 		model.addAttribute("notice_number", notice_number);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("notice", notice);
@@ -163,6 +167,8 @@ public class AdministratorController {
 		// 관리자 공지 작성 폼
 		int category = Integer.parseInt(params.get("category"));
 		
+		LOGGER.info("관리자 공지 작성 페이지 접속!");
+		
 		model.addAttribute("category", category);
 		
 		return "admin/write_notice";
@@ -171,7 +177,7 @@ public class AdministratorController {
 	@RequestMapping(value = "write_process", method = RequestMethod.POST)
 	public String write_process(@ModelAttribute NoticeVO notice, HttpServletRequest request, Model model) throws IOException {
 		// 공지 작성
-		String directory = request.getServletContext().getRealPath("\\resources\\notice\\img\\");	// 파일 저장 경로
+		String directory = request.getServletContext().getRealPath("\\resources\\notice\\img");	// 파일 저장 경로
 		String filename = null;
 		MultipartFile upload_file = notice.getUpload_file();
 		
@@ -187,7 +193,7 @@ public class AdministratorController {
 		}
 		
 		notice.setFilename(filename);
-		LOGGER.info("공지 작성 결과 : {}", noticeDao.insertNotice(notice));
+		LOGGER.info("공지 작성 결과 : {}.", noticeDao.insertNotice(notice));
 		
 		return "redirect:/admin/noticelist?category=1";
 	}
@@ -200,7 +206,9 @@ public class AdministratorController {
 		File img = new File(directory + "\\" + noticeDao.getNotice(notice_number).getFilename());	// 공지의 이미지
 		int result = noticeDao.deleteNotice(notice_number);
 		
-		img.delete();
+		img.delete();	// 첨부된 이미지 삭제
+		
+		LOGGER.info("공지 삭제 결과 : {}.", result);
 		
 		model.addAttribute("result", result);
 		
@@ -213,6 +221,8 @@ public class AdministratorController {
 		int notice_number = Integer.parseInt(params.get("notice_number"));
 		
 		NoticeVO notice = noticeDao.getNotice(notice_number);
+		
+		LOGGER.info("관리자 공지 수정 페이지 접속!");
 		
 		model.addAttribute("notice", notice);
 		
@@ -242,7 +252,7 @@ public class AdministratorController {
 		}
 		
 		notice.setFilename(filename);
-		LOGGER.info("공지 수정 결과 : {}", noticeDao.updateNotice(notice));
+		LOGGER.info("공지 수정 결과 : {}.", noticeDao.updateNotice(notice));
 		
 		return "redirect:/admin/notice?notice_number=" + notice.getNotice_number() + "&category=" + notice.getCategory();
 	}
