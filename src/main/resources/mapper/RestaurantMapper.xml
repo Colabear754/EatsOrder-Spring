@@ -54,7 +54,7 @@
 	</select>
 	
 	<select id="isFavorite" resultType="_boolean">
-		select if(count(*) = 1, 1, 0) 
+		select case when count(*) > 0 then 1 else 0 end result
 		from favorite_restaurant 
 		where email = #{email} and rst_id = #{rst_id}
 	</select>

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ky.eatsorder.domain.restaurant.FavoriteRestaurantVO;
 import com.ky.eatsorder.domain.restaurant.RestaurantVO;
 import com.ky.eatsorder.mapper.RestaurantMapper;
 import com.ky.eatsorder.service.RestaurantService;
@@ -29,24 +30,24 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public boolean isFavorite(HashMap<String, Object> map) {
+	public boolean isFavorite(FavoriteRestaurantVO vo) {
 		// 매장 좋아요 여부
-		return mapper.isFavorite(map);
+		return mapper.isFavorite(vo);
 	}
 
 	@Override
-	public int registFavoriteRestaurant(HashMap<String, Object> map) {
+	public int registFavoriteRestaurant(FavoriteRestaurantVO vo) {
 		// 매장 찜하기
-		int result = mapper.registFavoriteRestaurant(map);
+		int result = mapper.registFavoriteRestaurant(vo);
 		System.out.println("찜 등록 결과 : " + result);
 		
 		return result;
 	}
 
 	@Override
-	public int removeFavoriteRestaurant(HashMap<String, Object> map) {
+	public int removeFavoriteRestaurant(FavoriteRestaurantVO vo) {
 		// 매장 찜취소
-		int result = mapper.removeFavoriteRestaurant(map);
+		int result = mapper.removeFavoriteRestaurant(vo);
 		System.out.println("찜 취소 결과 : " + result);
 		
 		return result;
