@@ -253,4 +253,33 @@
 		<put-attribute name="body" value="/WEB-INF/views/notice/notice.jsp" />
 	</definition>
 	
+	<!-- 매장 목록 -->
+	<definition name="restaurant/list" extends="base">
+		<put-attribute name="title" value="매장 목록" />
+		<put-attribute name="css" value="/resources/restaurant/css/rst_list.css" />
+		<put-attribute name="js" value="/resources/restaurant/js/rstList_script.js" />
+		<put-attribute name="body" value="/WEB-INF/views/restaurant/rstlist.jsp" />
+	</definition>
+	
+	<!-- 매장 더보기 목록 -->
+	<definition name="restaurant/morelist" template="/WEB-INF/views/restaurant/more_rstlist.jsp" />
+	
+	<!-- 매장 페이지 -->
+	<definition name="restaurant/info" extends="base">
+		<put-attribute name="title" value="매장 정보" />
+		<put-attribute name="css" value="/resources/restaurant/css/rst_form.css?1" />
+		<put-attribute name="js" value="/resources/restaurant/js/rst_form.js?1" />
+		<put-attribute name="body" value="/WEB-INF/views/restaurant/rst_form.jsp" />
+	</definition>
+	
+	<!-- 매장 상세정보 -->
+	<definition name="restaurant/detail" extends="base">
+		<put-attribute name="title" value="매장 상세" />
+		<put-attribute name="css" value="/resources/restaurant/css/rst_form.css?1" />
+		<put-attribute name="js" value="/resources/restaurant/js/rst_form.js?1" />
+		<put-attribute name="body" value="/WEB-INF/views/restaurant/rst_form.jsp" />
+	</definition>
+	
+	<!-- 매장 찜하기 -->
+	<definition name="restaurant/favorite" template="/WEB-INF/views/component/check.jsp" />
 </tiles-definitions>
