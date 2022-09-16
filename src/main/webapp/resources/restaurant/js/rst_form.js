@@ -8,7 +8,7 @@ $(function() {
 	// 페이지가 처음 로드 되었을 땐 메뉴 리스트 출력
 	$.ajax({
 		type: "POST",
-		url: "/EatsOrder/menu/menuList.do",
+		url: "/eatsorder/menu/menulist",
 		data: "rst_id=" + $('#rst_id').val(),
 		dataType: "text",
 		success: function(data) {
@@ -22,7 +22,7 @@ $(function() {
 	// 페이지가 로드되면 주문표 출력
 	$.ajax({
 		type: "POST",
-		url: "/EatsOrder/order/cart.do",
+		url: "/eatsorder/order/cart",
 		success: function(data) {
 			$('#cart-area').html(data);
 		},
@@ -56,8 +56,8 @@ $(function() {
 		if ($('#address').val() != '') {
 			// 폼 생성 및 속성 설정
 			var newForm = $('<form></form>');
-			newForm.attr('method', 'post');
-			newForm.attr('action', '/EatsOrder/restaurant/rstList.do');
+			newForm.attr('method', 'get');
+			newForm.attr('action', '/eatsorder/restaurant/list');
 			// 폼에 항목 추가
 			newForm.append($('<input>', {type: 'hidden', name: 'category_id', value: $(this).attr('id')}));
 			newForm.append($('<input>', {type: 'hidden', name: 'address', value: $('#address').val()}));
@@ -77,14 +77,14 @@ $(function() {
 	// 매장 찜하기 기능
 	$('#favorite').click(function() {
 		if ($('#email').val() === '') {	// 로그인 되어있지 않으면 로그인 화면으로 이동
-			location.href = "/EatsOrder/member/loginForm.do";
+			location.href = "/eatsorder/member/login";
 		} else {	// 로그인 되어있으면 찜하기 및 찜하기 취소
 			var email = $('#email').val();
 			var rst_id = $('#rst_id').val();
 			
 			$.ajax({
 				type: "POST",
-				url: "/EatsOrder/restaurant/favoriteRst.do",
+				url: "/eatsorder/restaurant/favorite",
 				data: {
 					"email": email,
 					"rst_id": rst_id
@@ -119,7 +119,7 @@ $(function() {
 			// 메뉴리스트를 받아와서 태그에 추가
 			$.ajax({
 				type: "POST",
-				url: "/EatsOrder/menu/menuList.do",
+				url: "/eatsorder/menu/menulist",
 				data: "rst_id=" + rst_id,
 				dataType: "text",
 				success: function(data) {
@@ -145,8 +145,11 @@ $(function() {
 			// 리뷰리스트를 받아와서 태그에 추가
 			$.ajax({
 				type: "POST",
-				url: "/EatsOrder/review/reviewListForm.do",
-				data: "rst_id=" + rst_id + "&pageNum=" + pageNum,
+				url: "/eatsorder/review/reviewlistform",
+				data: {
+					"rst_id": rst_id,
+					"pageNum": pageNum
+				},
 				dataType: "text",
 				success: function(data) {
 					$('#review-list').html(data);
@@ -170,7 +173,7 @@ $(function() {
 			// 리뷰리스트를 받아와서 태그에 추가
 			$.ajax({
 				type: "POST",
-				url: "/EatsOrder/restaurant/rst_info.do",
+				url: "/eatsorder/restaurant/detail",
 				data: "rst_id=" + rst_id,
 				dataType: "text",
 				success: function(data) {

@@ -20,9 +20,10 @@
 	<script type="text/javascript" src='${contextpath}<tiles:getAsString name="js" />'></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="https://kit.fontawesome.com/6cc0f3db28.js" crossorigin="anonymous"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
-<body>
+<body style="margin: 0;">
 	<header>
 		<tiles:insertAttribute name="header" />
 	</header>

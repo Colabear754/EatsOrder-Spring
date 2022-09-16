@@ -13,7 +13,6 @@
 		<typeAlias type="com.ky.eatsorder.domain.member.WithdrawMemberVO" alias="WithdrawMemberVO" />
 		<!-- menu -->
 		<typeAlias type="com.ky.eatsorder.domain.menu.MenuCategoryVO" alias="MenuCategoryVO" />
-		<typeAlias type="com.ky.eatsorder.domain.menu.MenuListVO" alias="MenuListVO" />
 		<typeAlias type="com.ky.eatsorder.domain.menu.MenuOptionVO" alias="MenuOptionVO" />
 		<typeAlias type="com.ky.eatsorder.domain.menu.MenuRstVO" alias="MenuRstVO" />
 		<typeAlias type="com.ky.eatsorder.domain.menu.MenuVO" alias="MenuVO" />
@@ -23,7 +22,6 @@
 		<!-- notice -->
 		<typeAlias type="com.ky.eatsorder.domain.notice.NoticeVO" alias="NoticeVO" />
 		<!-- order -->
-		<typeAlias type="com.ky.eatsorder.domain.order.CartItemVO" alias="CartItemVO" />
 		<typeAlias type="com.ky.eatsorder.domain.order.CartVO" alias="CartVO" />
 		<typeAlias type="com.ky.eatsorder.domain.order.OrderDetailInfoVO" alias="OrderDetailInfoVO" />
 		<typeAlias type="com.ky.eatsorder.domain.order.OrderDetailVO" alias="OrderDetailVO" />

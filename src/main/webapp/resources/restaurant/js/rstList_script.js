@@ -26,7 +26,7 @@ $(function() {
 		e.preventDefault();
 		// 폼 생성 및 속성 설정
 		var newForm = $('<form></form>');
-		newForm.attr('method', 'post');
+		newForm.attr('method', 'get');
 		newForm.attr('action', '/eatsorder/restaurant/info');
 		// 폼에 항목 추가
 		newForm.append($('<input>', {type: 'hidden', name: 'rst_id', value: $(this).attr('id')}));

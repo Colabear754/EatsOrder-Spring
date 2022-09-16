@@ -1,12 +1,15 @@
-package com.ky.eatsorder.domain.menu;
+package com.ky.eatsorder.domain.etc_classes;
 
 import java.util.ArrayList;
 
-public class MenuListVO {
-	MenuCategoryVO category;
-	ArrayList<MenuVO> menuList;
+import com.ky.eatsorder.domain.menu.MenuCategoryVO;
+import com.ky.eatsorder.domain.menu.MenuVO;
 
-	public MenuListVO(MenuCategoryVO category, ArrayList<MenuVO> menuList) {
+public class MenuList {
+	private MenuCategoryVO category;
+	private ArrayList<MenuVO> menuList;
+
+	public MenuList(MenuCategoryVO category, ArrayList<MenuVO> menuList) {
 		this.category = category;
 		this.menuList = menuList;
 	}

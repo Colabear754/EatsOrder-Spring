@@ -265,21 +265,31 @@
 	<definition name="restaurant/morelist" template="/WEB-INF/views/restaurant/more_rstlist.jsp" />
 	
 	<!-- 매장 페이지 -->
-	<definition name="restaurant/info" extends="base">
-		<put-attribute name="title" value="매장 정보" />
+	<definition name="restaurant/info" template="/WEB-INF/views/restaurant/rst_form.jsp">
+		<put-attribute name="title" value="매장 상세" />
+		<put-attribute name="header_style" value="/resources/tiles/css/main_header_style.css" />
 		<put-attribute name="css" value="/resources/restaurant/css/rst_form.css?1" />
+		<put-attribute name="footer_style" value="/resources/tiles/css/footer_style.css" />
 		<put-attribute name="js" value="/resources/restaurant/js/rst_form.js?1" />
-		<put-attribute name="body" value="/WEB-INF/views/restaurant/rst_form.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles/main_header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
 	</definition>
 	
 	<!-- 매장 상세정보 -->
-	<definition name="restaurant/detail" extends="base">
-		<put-attribute name="title" value="매장 상세" />
-		<put-attribute name="css" value="/resources/restaurant/css/rst_form.css?1" />
-		<put-attribute name="js" value="/resources/restaurant/js/rst_form.js?1" />
-		<put-attribute name="body" value="/WEB-INF/views/restaurant/rst_form.jsp" />
-	</definition>
+	<definition name="restaurant/detail" template="/WEB-INF/views/restaurant/rst_info.jsp" />
 	
 	<!-- 매장 찜하기 -->
 	<definition name="restaurant/favorite" template="/WEB-INF/views/component/check.jsp" />
+	
+	<!-- 주문표 -->
+	<definition name="order/cart" template="/WEB-INF/views/order/cart.jsp" />
+	
+	<!-- 메뉴 목록 -->
+	<definition name="menu/menulist" template="/WEB-INF/views/menu/menulist.jsp" />
+	
+	<!-- 에러 페이지 -->
+	<definition name="exception" extends="base">
+		<put-attribute name="title" value="오류 발생" />
+		<put-attribute name="body" value="/WEB-INF/views/exception.jsp" />
+	</definition>
 </tiles-definitions>

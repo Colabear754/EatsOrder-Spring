@@ -1,21 +1,21 @@
-package com.ky.eatsorder.domain.order;
+package com.ky.eatsorder.domain.etc_classes;
 
 import java.util.ArrayList;
 
 import com.ky.eatsorder.domain.menu.OptionInfoVO;
 
-public class CartItemVO {
+public class CartItem {
 	private int menu_id;
 	private String menu_name;
 	private ArrayList<OptionInfoVO> selectedOptions;
 	private int quantity;
 	private int price;
 
-	public CartItemVO() {
+	public CartItem() {
 		super();
 	}
 
-	public CartItemVO(int menu_id, String menu_name, ArrayList<OptionInfoVO> selectedOptions, int quantity, int price) {
+	public CartItem(int menu_id, String menu_name, ArrayList<OptionInfoVO> selectedOptions, int quantity, int price) {
 		this.menu_id = menu_id;
 		this.menu_name = menu_name;
 		this.selectedOptions = selectedOptions;
