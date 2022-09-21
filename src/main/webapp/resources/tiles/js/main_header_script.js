@@ -10,10 +10,10 @@ $(function() {
 		
 		$.ajax({
 			type: "POST",
-			url: "/EatsOrder/member/cart.do",
+			url: "/eatsorder/member/cart",
 			success: function(result) {
 				if (result > 0) {
-					location.href = '/EatsOrder/restaurant/rst_form.do?rst_id=' + result;
+					location.href = '/eatsorder/restaurant/info?rst_id=' + result;
 				} else {
 					swal("주문표에 등록된 메뉴가 없습니다.", "", "error");
 				}

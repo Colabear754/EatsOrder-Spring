@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="<c:url value="/resources/tiles/js/main_header_script.js"/>"></script>
 <div class="header_top">
 	<div class="logo">
-		<a href="/eatsorder/main"><img src="/eatsorder/resources/tiles/img/Logo.png" alt="로고-아이콘"></a>
+		<a href="/eatsorder/main"><img src="<c:url value="/resources/tiles/img/Logo.png"/>" alt="로고-아이콘"></a>
 	</div>
 	<ul class="icon_menu">
 		<c:if test="${eatsorder_uid == null}">

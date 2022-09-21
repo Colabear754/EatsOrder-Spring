@@ -161,6 +161,9 @@
         <put-attribute name="body" value="/WEB-INF/views/member/reviewlist.jsp"/>
     </definition>
 
+    <!-- 헤더 장바구니 버튼 -->
+    <definition name="member/cart" template="/WEB-INF/views/component/check.jsp"/>
+
     <!-- 관리자 페이지 메인 -->
     <definition name="admin/main" extends="base">
         <put-attribute name="title" value="관리자 페이지"/>
@@ -297,9 +300,15 @@
     <!-- 리뷰목록 -->
     <definition name="review/list" template="/WEB-INF/views/review/reviewList.jsp" />
 
-    <!-- 에러 페이지 -->
-    <definition name="exception" extends="base">
-        <put-attribute name="title" value="오류 발생"/>
-        <put-attribute name="body" value="/WEB-INF/views/exception.jsp"/>
-    </definition>
+    <!-- 장바구니 비우기 -->
+    <definition name="order/clean_cart" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 장바구니에 메뉴 추가 -->
+    <definition name="order/insert_cart" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 장바구니 메뉴 삭제 -->
+    <definition name="order/delete_cart" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 장바구니 메뉴 수량 변경 -->
+    <definition name="order/update_cart" template="/WEB-INF/views/component/check.jsp"/>
 </tiles-definitions>
