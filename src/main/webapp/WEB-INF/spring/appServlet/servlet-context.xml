@@ -40,12 +40,6 @@
 		<beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 	
-	<!-- 에러 페이지 -->
-	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<beans:property name="defaultErrorView" value="exception" />
-		<beans:property name="warnLogCategory" value="abdc" />
-	</beans:bean>
-	
 	<context:component-scan base-package="com.ky.eatsorder" />
 	
 	
