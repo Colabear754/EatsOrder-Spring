@@ -140,7 +140,7 @@
                     </div>
                     <div class="review_img2">
 						<c:if test="${reviewData.review.photo5 !=null }">
-                        <img src="<c:url value="/resources/member/img/${reviewData.review.photo5}"/>" alt="리뷰사진">
+                        <img src="<c:url value="/resources/uploaded_img/${reviewData.review.photo5}"/>" alt="리뷰사진">
                         </c:if>
                         <c:if test="${reviewData.review.photo5 ==null }">
                         <img src="<c:url value="/resources/member/img/review_food.jpg"/>" alt="리뷰 예시 사진">
