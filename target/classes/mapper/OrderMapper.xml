@@ -144,10 +144,10 @@
 		</if>
 		<where>
 			<choose>
-				<when test="type=='review_number">
+				<when test="type=='review_number'">
 					review_number = #{review_number} and r.order_number = oh.order_number and oh.order_number = od.order_number and od.menu_id = m.menu_id
 				</when>
-				<when test="type=='order_number">
+				<when test="type=='order_number'">
 					oh.order_number = #{order_number} and oh.order_number = od.order_number and od.menu_id = m.menu_id
 				</when>
 			</choose>
