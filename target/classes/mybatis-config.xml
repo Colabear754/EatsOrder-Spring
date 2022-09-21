@@ -18,7 +18,6 @@
 		<typeAlias type="com.ky.eatsorder.domain.menu.MenuVO" alias="MenuVO" />
 		<typeAlias type="com.ky.eatsorder.domain.menu.OptionGroupVO" alias="OptionGroupVO" />
 		<typeAlias type="com.ky.eatsorder.domain.menu.OptionInfoVO" alias="OptionInfoVO" />
-		<typeAlias type="com.ky.eatsorder.domain.menu.OptionListVO" alias="OptionListVO" />
 		<!-- notice -->
 		<typeAlias type="com.ky.eatsorder.domain.notice.NoticeVO" alias="NoticeVO" />
 		<!-- order -->
