@@ -145,7 +145,7 @@ $(function() {
 			// 리뷰리스트를 받아와서 태그에 추가
 			$.ajax({
 				type: "POST",
-				url: "/eatsorder/review/reviewlistform",
+				url: "/eatsorder/review/listform",
 				data: {
 					"rst_id": rst_id,
 					"pageNum": pageNum
@@ -170,7 +170,7 @@ $(function() {
 			$('#menu-list').empty();
 			$('#review-list').empty();
 			$('#rst-info').empty();
-			// 리뷰리스트를 받아와서 태그에 추가
+			// 매장정보를 받아와서 태그에 추가
 			$.ajax({
 				type: "POST",
 				url: "/eatsorder/restaurant/detail",

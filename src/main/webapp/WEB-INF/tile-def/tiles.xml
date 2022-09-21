@@ -291,6 +291,12 @@
     <!-- 메뉴 정보 -->
     <definition name="menu/item" template="/WEB-INF/views/menu/menuInfo.jsp" />
 
+    <!-- 리뷰목록 폼 -->
+    <definition name="review/listform" template="/WEB-INF/views/review/reviewListForm.jsp" />
+
+    <!-- 리뷰목록 -->
+    <definition name="review/list" template="/WEB-INF/views/review/reviewList.jsp" />
+
     <!-- 에러 페이지 -->
     <definition name="exception" extends="base">
         <put-attribute name="title" value="오류 발생"/>
