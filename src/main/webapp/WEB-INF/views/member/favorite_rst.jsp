@@ -13,7 +13,7 @@
         	<div class="grid_box2">
         	<c:forEach var="favoriteRst" items="${favorite_rst}">
               	<div class="like_box2">
-                  	<h3><a href="/eatsorder/restaurant/rst?rst_id=${favoriteRst.restaurant.rst_id}">${favoriteRst.restaurant.rst_name}<span>></span></a></h3>
+                  	<h3><a href="/eatsorder/restaurant/info?rst_id=${favoriteRst.restaurant.rst_id}">${favoriteRst.restaurant.rst_name}<span>></span></a></h3>
                   	<div class="del_btn">
                       	<a href="#">삭제</a>
                   	</div>

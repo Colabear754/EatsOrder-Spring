@@ -17,7 +17,7 @@
 						<div class="order_box2">
 							<h4>${order.ORDER_NUMBER}</h4>
 							<h3>
-								<a href="/eatsorder/restaurant/rst?rst_id=${order.RST_ID}">${order.RST_NAME}<span>></span></a> <span class="order_status"> <c:choose>
+								<a href="/eatsorder/restaurant/info?rst_id=${order.RST_ID}">${order.RST_NAME}<span>></span></a> <span class="order_status"> <c:choose>
 										<c:when test="${order.PAYMENT_STATUS == 0}">주문 취소</c:when>
 										<c:when test="${order.ELAPSED_TIME < (1 / 60) * 5}">주문 접수 대기</c:when>
 										<c:when test="${order.ELAPSED_TIME >= (1 / 60) * 5 && order.ELAPSED_TIME < (1 / 60) * 15 }">메뉴 준비 중</c:when>

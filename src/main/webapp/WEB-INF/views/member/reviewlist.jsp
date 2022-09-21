@@ -18,7 +18,7 @@
 			<c:if test="${orderCount > 0 }">
 				<c:forEach var="orderList" items="${orderList}">
 				<c:if test="${orderList.elapsed_time >= (1 / 60) * 25 && orderList.elapsed_time < 10080}">
-				<form id="review_form" name="review_form" method="post" action="insertMyReview.do" enctype="multipart/form-data"> 
+				<form id="review_form" name="review_form" method="post" action="/eatsorder/review/write" enctype="multipart/form-data">
 					<input type="hidden" name="pageNum" value="${pageNum}">
 					<input type="hidden"  name="order_number" value="${orderList.order_number}">
 					<input type="hidden" id="ratings" name="rating" value="${rating}">
@@ -28,7 +28,7 @@
 							<tr class="shop_name">
 								<td>
 									<h3 class="shop">
-										<a href="/eatsorder/restaurant/rst?rst_id=${orderList.rst_id}">
+										<a href="/eatsorder/restaurant/info?rst_id=${orderList.rst_id}">
 										${orderList.rst_name}
 										<span>></span>
 										</a>
@@ -82,7 +82,7 @@
 							<!-- 이미지, 글자수, 리뷰 -->
 							<tr>
 								<td class="shop_img">
-									<img src="./img/review_food.jpg" alt="리뷰 예시 사진">
+									<img src="<c:url value="/resources/member/img/review_food.jpg"/>" alt="리뷰 예시 사진">
 								</td>
 								<td class="text_box">
 									<span class="text_count">0자</span>
@@ -120,7 +120,7 @@
                 <input type="hidden" class="email" value="${email}">
                 <input type="hidden" class="review_number" value="${reviewData.review.review_number}">
                     <h3>
-						<a href="/EatsOrder/restaurant/rst_form.do?rst_id=${reviewData.restaurant.rst_id}">
+						<a href="/eatsorder/restaurant/info?rst_id=${reviewData.restaurant.rst_id}">
                         ${reviewData.restaurant.rst_name}
                         <span>></span>
 						</a>
@@ -140,10 +140,10 @@
                     </div>
                     <div class="review_img2">
 						<c:if test="${reviewData.review.photo5 !=null }">
-                        <img src="../reviewPhoto/${reviewData.review.photo5}" alt="리뷰사진">
+                        <img src="<c:url value="/resources/member/img/${reviewData.review.photo5}"/>" alt="리뷰사진">
                         </c:if>
                         <c:if test="${reviewData.review.photo5 ==null }">
-                        <img src="./img/review_food.jpg" alt="리뷰 예시 사진">
+                        <img src="<c:url value="/resources/member/img/review_food.jpg"/>" alt="리뷰 예시 사진">
                         </c:if>
                     </div>
                     <div class="review_text2">
