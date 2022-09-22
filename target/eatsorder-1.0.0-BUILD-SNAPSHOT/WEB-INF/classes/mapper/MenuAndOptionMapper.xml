@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.ky.eatsorder.mapper.MenuAndOptionMapper">
+	<select id="getMenuCategories" resultType="MenuCategoryVO">
+		select * 
+		from menu_category 
+		where rst_id = #{rst_id}
+	</select>
+	
+	<select id="getMenuList" resultType="MenuVO">
+		select menu.* 
+		from menu, menu_category mc 
+		where menu.category_id = #{category_id} and menu.category_id = mc.category_id and mc.rst_id = #{rst_id}
+	</select>
+	
+	<!-- <select id="searchMenuList" resultType="MenuRstVO">
+		select m.menu_id, r.rst_id, rst_name, round(avg(rating), 1) as rating, count(review_number) as count 
+		from menu m, menu_category mc, restaurant r, review, order_history oh, order_detail od 
+		where menu_name like '%'||#{searchText}||'%' 
+			and sido = #{sido} 
+			and sigungu = #{sigungu}
+			and bname = #{bname}
+			and m.category_id = mc.category_id 
+			and mc.rst_id = r.rst_id 
+			and od.menu_id = m.menu_id 
+			and od.order_number = oh.order_number 
+			and oh.order_number = review.order_number 
+		group by od.menu_id, m.menu_id, menu_name, r.rst_id, rst_name
+	</select> -->
+	
+	<select id="getMenu" resultType="MenuVO">
+		select * 
+		from menu 
+		where menu_id = #{menu_id}
+	</select>
+	
+	<select id="getMenuOptionGroups" resultType="OptionGroupVO">
+		select og.* 
+		from option_group og, menu_option mo 
+		where mo.menu_id = #{menu_id} and mo.group_id = og.group_id
+	</select>
+	
+	<select id="getOptionList" resultType="OptionInfoVO">
+		select * 
+		from option_info 
+		where group_id = #{group_id}
+	</select>
+</mapper>

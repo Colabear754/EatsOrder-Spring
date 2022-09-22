@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.ky.eatsorder.mapper.CouponMapper">
+	<select id="checkAvailableCoupon" resultType="_boolean">
+		select case when count(*) > 0 then 1 else 0 end result
+		from valid_coupon v, owned_coupon o 
+		where v.coupon_id=o.coupon_id and o.coupon_id=#{coupon_id} and owner_id=#{owner_id} and 
+		<![CDATA[available_count > 0]]>
+	</select>
+	
+	<update id="useCoupon">
+		update owned_coupon 
+		set available_count=available_count - 1 
+		where coupon_id=#{coupon_id} and owner_id=#{owner_id}
+	</update>
+	
+	<select id="getCoupons" resultType="HashMap">
+		select v.*, o.available_count 
+		from valid_coupon v, owned_coupon o 
+		where v.coupon_id=o.coupon_id and o.owner_id=#{owner_id} and 
+		<![CDATA[o.available_count > 0 and expiration_date > sysdate]]>
+	</select>
+	
+	<select id="getCouponCount" resultType="_int">
+		select count(o.coupon_id) 
+		from owned_coupon o, valid_coupon v 
+		where owner_id=#{owner_id} and o.coupon_id=v.coupon_id 
+		<![CDATA[and available_count > 0 and expiration_date > sysdate]]>
+	</select>
+</mapper>

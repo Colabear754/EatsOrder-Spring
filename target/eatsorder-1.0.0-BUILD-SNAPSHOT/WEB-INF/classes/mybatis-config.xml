@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- administrator -->
+		<typeAlias type="com.ky.eatsorder.domain.administrator.AdministratorVO" alias="AdministratorVO" />
+		<!-- coupon -->
+		<typeAlias type="com.ky.eatsorder.domain.coupon.OwnedCouponVO" alias="OwnedCouponVO" />
+		<typeAlias type="com.ky.eatsorder.domain.coupon.ValidCouponVO" alias="ValidCouponVO" />
+		<!-- member -->
+		<typeAlias type="com.ky.eatsorder.domain.member.MemberInfoVO" alias="MemberInfoVO" />
+		<typeAlias type="com.ky.eatsorder.domain.member.MemberLoginVO" alias="MemberLoginVO" />
+		<typeAlias type="com.ky.eatsorder.domain.member.WithdrawMemberVO" alias="WithdrawMemberVO" />
+		<!-- menu -->
+		<typeAlias type="com.ky.eatsorder.domain.menu.MenuCategoryVO" alias="MenuCategoryVO" />
+		<typeAlias type="com.ky.eatsorder.domain.menu.MenuOptionVO" alias="MenuOptionVO" />
+		<typeAlias type="com.ky.eatsorder.domain.menu.MenuRstVO" alias="MenuRstVO" />
+		<typeAlias type="com.ky.eatsorder.domain.menu.MenuVO" alias="MenuVO" />
+		<typeAlias type="com.ky.eatsorder.domain.menu.OptionGroupVO" alias="OptionGroupVO" />
+		<typeAlias type="com.ky.eatsorder.domain.menu.OptionInfoVO" alias="OptionInfoVO" />
+		<!-- notice -->
+		<typeAlias type="com.ky.eatsorder.domain.notice.NoticeVO" alias="NoticeVO" />
+		<!-- order -->
+		<typeAlias type="com.ky.eatsorder.domain.order.CartVO" alias="CartVO" />
+		<typeAlias type="com.ky.eatsorder.domain.order.OrderDetailInfoVO" alias="OrderDetailInfoVO" />
+		<typeAlias type="com.ky.eatsorder.domain.order.OrderDetailVO" alias="OrderDetailVO" />
+		<typeAlias type="com.ky.eatsorder.domain.order.OrderHistoryVO" alias="OrderHistoryVO" />
+		<!-- restaurant -->
+		<typeAlias type="com.ky.eatsorder.domain.restaurant.DeliveryZoneVO" alias="DeliveryZoneVO" />
+		<typeAlias type="com.ky.eatsorder.domain.restaurant.FavoriteRestaurantVO" alias="FavoriteRestaurantVO" />
+		<typeAlias type="com.ky.eatsorder.domain.restaurant.RestaurantCategoryVO" alias="RestaurantCategoryVO" />
+		<typeAlias type="com.ky.eatsorder.domain.restaurant.RestaurantManagerVO" alias="RestaurantManagerVO" />
+		<typeAlias type="com.ky.eatsorder.domain.restaurant.RestaurantVO" alias="RestaurantVO" />
+		<!-- review -->
+		<typeAlias type="com.ky.eatsorder.domain.review.ReplyVO" alias="ReplyVO" />
+		<typeAlias type="com.ky.eatsorder.domain.review.ReviewLikeVO" alias="ReviewLikeVO" />
+		<typeAlias type="com.ky.eatsorder.domain.review.ReviewVO" alias="ReviewVO" />
+	</typeAliases>
+
+</configuration>

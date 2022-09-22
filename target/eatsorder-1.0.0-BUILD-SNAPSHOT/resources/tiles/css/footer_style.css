@@ -1,0 +1,106 @@
+/* 
+작성자: 김나연
+작성완료일: 22/04/04
+페이지명: 푸터
+
+수정자 : 김나연
+수정완료일 : 2022/04/29
+수정내용 : 전체마진 삭제
+
+수정자 : 김나연
+수정완료일 : 2022/05/01
+수정내용 : hr width조정, .hr 스타일 삭제, li a/footer sns 마진 조정
+*/
+
+/* footer 배경*/
+footer {
+    background-color: #212121;
+    height: 480px;
+    bottom: 0;
+    /* 푸터 하단에 붙이기 */
+
+
+/*     position : relative; */
+/*     transform : translateY(-100%); */
+}
+
+/* 푸터 하단에 붙이기 */
+.content_box {
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 320px;
+  }
+
+
+/* footer 그리드 */
+.all_footer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, auto);
+    margin-left: 10%;
+    margin-right: 10%;
+    column-gap: 1%;
+    padding-top: 50px;
+}
+
+footer div, footer p {
+    color: #C4C4C4;
+}
+
+/* footer list */
+.footer_list ul {
+    display: grid;
+    grid-template-columns: 2fr 202px;
+    grid-template-rows: repeat(1, auto);
+    column-gap: 1%;
+    row-gap: 12px;
+    padding: 0 0 0 7px;
+    margin: 5px;
+}
+
+/* footer 메뉴 전체 */
+.footer_list li {
+    display: inline;
+    text-decoration: none;
+    margin: 0 5px 0 0;
+}
+
+/* sns 아이콘 */
+.footer_sns {
+    width: fit-content;
+    margin-left: 80px;
+}
+
+/* footer list a */
+.footer_list a {
+    text-decoration: none;
+    color: #C4C4C4;
+    font-weight:bold;
+    margin-right: 5px;
+}
+
+/* hr 효과 */
+footer hr {
+    background: #C4C4C4;
+    width: 1600px;
+}
+
+/* 회사설명 p 마진 */
+.fooer_script p {
+    margin: 0;
+}
+
+/* 고객만족 전체설정 */
+.cs h1, .cs p {
+    display: inline-block;
+}
+
+.cs h1 {
+    margin: 40px 0;
+}
+
+/* 통신판매중개자 안내문구 */
+.footer_script2 p {
+   margin: 5px 0;
+}
+

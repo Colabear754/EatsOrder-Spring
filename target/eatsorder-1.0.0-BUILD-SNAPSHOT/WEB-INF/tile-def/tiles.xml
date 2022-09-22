@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <!-- 기본 레이아웃 -->
+    <definition name="base" template="/WEB-INF/views/tiles/defaultLayout.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header_style" value="/resources/tiles/css/main_header_style.css"/>
+        <put-attribute name="mypage_style" value=""/>
+        <put-attribute name="css" value=""/>
+        <put-attribute name="footer_style" value="/resources/tiles/css/footer_style.css"/>
+        <put-attribute name="js" value=""/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/main_header.jsp"/>
+        <put-attribute name="mypage_side" value=""/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"/>
+    </definition>
+
+    <!-- 메인 페이지 -->
+    <definition name="main" extends="base">
+        <put-attribute name="title" value="잇츠오더"/>
+        <put-attribute name="css" value="/resources/main/css/main_style.css"/>
+        <put-attribute name="js" value="/resources/main/js/main_script.js"/>
+        <put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
+    </definition>
+
+    <!-- 이용약관 -->
+    <definition name="utilization" extends="base">
+        <put-attribute name="title" value="이용약관"/>
+        <put-attribute name="css" value="/resources/tiles/css/order2.css"/>
+        <put-attribute name="body" value="/WEB-INF/views/utilization.jsp"/>
+    </definition>
+
+    <!-- 로그인 페이지 -->
+    <definition name="member/login" extends="base">
+        <put-attribute name="title" value="로그인"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/login_header_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/login_style.css"/>
+        <put-attribute name="js" value="/resources/member/js/login_script.js"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/login_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/login.jsp"/>
+    </definition>
+
+    <!-- 로그인 결과 -->
+    <definition name="member/loginCheck" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 회원가입 페이지 -->
+    <definition name="member/create_account" extends="base">
+        <put-attribute name="title" value="회원가입"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/login_header_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/create_account_style.css"/>
+        <put-attribute name="js" value="/resources/member/js/create_account_script.js"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/login_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/create_account.jsp"/>
+    </definition>
+
+    <!-- 중복확인 결과 -->
+    <definition name="member/check_for_duplicate" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 회원가입 결과 -->
+    <definition name="member/regist" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 회원정보 수정 페이지 -->
+    <definition name="member/update_account" extends="base">
+        <put-attribute name="title" value="회원정보 수정"/>
+        <put-attribute name="mypage_style" value="/resources/tiles/css/mypage_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/update_member_style.css"/>
+        <put-attribute name="js" value="/resources/member/js/update_member_script.js"/>
+        <put-attribute name="mypage_side" value="/WEB-INF/views/tiles/mypage.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/update_account.jsp"/>
+    </definition>
+
+    <!-- 회원정보 수정 결과 -->
+    <definition name="member/update" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 회원탈퇴 페이지 -->
+    <definition name="member/delete_account" extends="base">
+        <put-attribute name="title" value="회원탈퇴"/>
+        <put-attribute name="css" value="/resources/member/css/delete_member_style.css"/>
+        <put-attribute name="js" value="/resources/member/js/delete_member_script.js"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/delete_account.jsp"/>
+    </definition>
+
+    <!-- 회원탈퇴 결과 -->
+    <definition name="member/withdraw" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 이메일 찾기 페이지 -->
+    <definition name="member/find_email" extends="base">
+        <put-attribute name="title" value="이메일 찾기"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/login_header_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/search_id_style.css"/>
+        <put-attribute name="js" value="/resources/member/js/search_id_script.js"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/login_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/find_email.jsp"/>
+    </definition>
+
+    <!-- 이메일 찾기 결과 -->
+    <definition name="member/find_result" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 비밀번호 찾기 페이지 -->
+    <definition name="member/find_password" extends="base">
+        <put-attribute name="title" value="비밀번호 찾기"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/login_header_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/search_pw_style.css"/>
+        <put-attribute name="js" value="/resources/member/js/search_pw_script.js"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/login_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/find_password.jsp"/>
+    </definition>
+
+    <!-- 비밀번호 찾기를 위한 회원 확인 결과 -->
+    <definition name="member/check_member" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 비밀번호 재설정 페이지 -->
+    <definition name="member/reset_password" extends="base">
+        <put-attribute name="title" value="비밀번호 재설정"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/login_header_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/resetPwdForm_style.css"/>
+        <put-attribute name="js" value="/resources/member/js/resetPwdForm_script.js"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/login_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/reset_password.jsp"/>
+    </definition>
+
+    <!-- 비밀번호 재설정 결과 -->
+    <definition name="member/reset_result" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 주문내역 -->
+    <definition name="member/orderlist" extends="base">
+        <put-attribute name="title" value="주문내역"/>
+        <put-attribute name="mypage_style" value="/resources/tiles/css/mypage_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/mypage_order_style.css"/>
+        <put-attribute name="mypage_side" value="/WEB-INF/views/tiles/mypage.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/orderlist.jsp"/>
+    </definition>
+
+    <!-- 쿠폰함 -->
+    <definition name="member/couponlist" extends="base">
+        <put-attribute name="title" value="쿠폰함"/>
+        <put-attribute name="mypage_style" value="/resources/tiles/css/mypage_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/myPage_coupon_style.css"/>
+        <put-attribute name="mypage_side" value="/WEB-INF/views/tiles/mypage.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/couponlist.jsp"/>
+    </definition>
+
+    <!-- 찜 매장 목록 -->
+    <definition name="member/favorite_rst" extends="base">
+        <put-attribute name="title" value="찜 매장"/>
+        <put-attribute name="mypage_style" value="/resources/tiles/css/mypage_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/mypage_like_style.css"/>
+        <put-attribute name="mypage_side" value="/WEB-INF/views/tiles/mypage.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/favorite_rst.jsp"/>
+    </definition>
+
+    <!-- 내 리뷰 목록 -->
+    <definition name="member/reviewlist" extends="base">
+        <put-attribute name="title" value="내 리뷰 목록"/>
+        <put-attribute name="mypage_style" value="/resources/tiles/css/mypage_style.css"/>
+        <put-attribute name="css" value="/resources/member/css/mypage_review_style.css?1"/>
+        <put-attribute name="js" value="/resources/member/js/myReviewList.js"/>
+        <put-attribute name="mypage_side" value="/WEB-INF/views/tiles/mypage.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/member/reviewlist.jsp"/>
+    </definition>
+
+    <!-- 헤더 장바구니 버튼 -->
+    <definition name="member/cart" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 관리자 페이지 메인 -->
+    <definition name="admin/main" extends="base">
+        <put-attribute name="title" value="관리자 페이지"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css"/>
+        <put-attribute name="css" value="/resources/admin/css/admin_main.css"/>
+        <put-attribute name="footer_style" value=""/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/admin_main.jsp"/>
+        <put-attribute name="footer" value=""/>
+    </definition>
+
+    <!-- 관리자 페이지 로그인 -->
+    <definition name="admin/login" extends="base">
+        <put-attribute name="title" value="관리자 페이지"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css"/>
+        <put-attribute name="css" value="/resources/admin/css/login_style.css"/>
+        <put-attribute name="footer_style" value=""/>
+        <put-attribute name="js" value="/resources/admin/js/login_script.js"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/admin_login.jsp"/>
+        <put-attribute name="footer" value=""/>
+    </definition>
+
+    <!-- 관리자 로그인 결과 -->
+    <definition name="admin/loginCheck" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 관리자 페이지 공지 목록 -->
+    <definition name="admin/noticelist" extends="base">
+        <put-attribute name="title" value="관리자 페이지"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css"/>
+        <put-attribute name="css" value="/resources/admin/css/noticelist.css"/>
+        <put-attribute name="footer_style" value=""/>
+        <put-attribute name="js" value="/resources/admin/js/noticelist_script.js"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/noticelist.jsp"/>
+        <put-attribute name="footer" value=""/>
+    </definition>
+
+    <!-- 관리자 페이지 공지 내용 -->
+    <definition name="admin/notice" extends="base">
+        <put-attribute name="title" value="관리자 페이지"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css"/>
+        <put-attribute name="css" value="/resources/admin/css/noticewrite.css?ver=5"/>
+        <put-attribute name="footer_style" value=""/>
+        <put-attribute name="js" value="/resources/admin/js/noticeContent.js?ver=1"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/notice.jsp"/>
+        <put-attribute name="footer" value=""/>
+    </definition>
+
+    <!-- 관리자 페이지 공지 작성 -->
+    <definition name="admin/write_notice" extends="base">
+        <put-attribute name="title" value="관리자 페이지"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css"/>
+        <put-attribute name="css" value="/resources/admin/css/noticewrite.css"/>
+        <put-attribute name="footer_style" value=""/>
+        <put-attribute name="js" value="/resources/admin/js/noticeWriteForm.js"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/write_notice.jsp"/>
+        <put-attribute name="footer" value=""/>
+    </definition>
+
+    <!-- 관리자 페이지 공지 삭제 -->
+    <definition name="admin/delete_notice" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 관리자 페이지 공지 수정 -->
+    <definition name="admin/update_notice" extends="base">
+        <put-attribute name="title" value="관리자 페이지"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/admin_header_style.css"/>
+        <put-attribute name="css" value="/resources/admin/css/noticewrite.css"/>
+        <put-attribute name="footer_style" value=""/>
+        <put-attribute name="js" value="/resources/admin/js/noticeWriteForm.js"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/admin_header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin/update_notice.jsp"/>
+        <put-attribute name="footer" value=""/>
+    </definition>
+
+    <!-- 공지 목록 -->
+    <definition name="notice/noticelist" extends="base">
+        <put-attribute name="title" value="이벤트/공지사항"/>
+        <put-attribute name="css" value="/resources/notice/css/noticelist.css?ver=1"/>
+        <put-attribute name="body" value="/WEB-INF/views/notice/noticelist.jsp"/>
+        <put-attribute name="js" value="/resources/notice/js/noticelist_script.js"/>
+    </definition>
+
+    <!-- 공지 내용 -->
+    <definition name="notice/notice" extends="base">
+        <put-attribute name="title" value="이벤트/공지사항"/>
+        <put-attribute name="css" value="/resources/notice/css/noticewrite.css?ver=1"/>
+        <put-attribute name="js" value="/resources/notice/js/noticeContent.js"/>
+        <put-attribute name="body" value="/WEB-INF/views/notice/notice.jsp"/>
+    </definition>
+
+    <!-- 매장 목록 -->
+    <definition name="restaurant/list" extends="base">
+        <put-attribute name="title" value="매장 목록"/>
+        <put-attribute name="css" value="/resources/restaurant/css/rst_list.css"/>
+        <put-attribute name="js" value="/resources/restaurant/js/rstList_script.js"/>
+        <put-attribute name="body" value="/WEB-INF/views/restaurant/rstlist.jsp"/>
+    </definition>
+
+    <!-- 매장 더보기 목록 -->
+    <definition name="restaurant/morelist" template="/WEB-INF/views/restaurant/more_rstlist.jsp"/>
+
+    <!-- 매장 페이지 -->
+    <definition name="restaurant/info" template="/WEB-INF/views/restaurant/rst_form.jsp">
+        <put-attribute name="title" value="매장 상세"/>
+        <put-attribute name="header_style" value="/resources/tiles/css/main_header_style.css"/>
+        <put-attribute name="css" value="/resources/restaurant/css/rst_form.css?1"/>
+        <put-attribute name="footer_style" value="/resources/tiles/css/footer_style.css"/>
+        <put-attribute name="js" value="/resources/restaurant/js/rst_form.js?1"/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/main_header.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"/>
+    </definition>
+
+    <!-- 매장 상세정보 -->
+    <definition name="restaurant/detail" template="/WEB-INF/views/restaurant/rst_info.jsp"/>
+
+    <!-- 매장 찜하기 -->
+    <definition name="restaurant/favorite" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 주문표 -->
+    <definition name="order/cart" template="/WEB-INF/views/order/cart.jsp"/>
+
+    <!-- 메뉴 목록 -->
+    <definition name="menu/menulist" template="/WEB-INF/views/menu/menulist.jsp"/>
+
+    <!-- 메뉴 정보 -->
+    <definition name="menu/item" template="/WEB-INF/views/menu/menuInfo.jsp" />
+
+    <!-- 리뷰목록 폼 -->
+    <definition name="review/listform" template="/WEB-INF/views/review/reviewListForm.jsp" />
+
+    <!-- 리뷰목록 -->
+    <definition name="review/list" template="/WEB-INF/views/review/reviewList.jsp" />
+
+    <!-- 장바구니 비우기 -->
+    <definition name="order/clean_cart" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 장바구니에 메뉴 추가 -->
+    <definition name="order/insert_cart" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 장바구니 메뉴 삭제 -->
+    <definition name="order/delete_cart" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 장바구니 메뉴 수량 변경 -->
+    <definition name="order/update_cart" template="/WEB-INF/views/component/check.jsp"/>
+</tiles-definitions>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.ky.eatsorder.mapper.NoticeMapper">
+	<select id="getNoticeSearchCount" resultType="_int">
+		select count(*)
+		from notice
+		where category = #{category}
+		<choose>
+			<when test="type=='title_content' or type==null">
+				and (title like '%'||#{data}||'%' or content like '%'||#{data}||'%')
+			</when>
+			<otherwise>
+				and ${type} like '%'||#{data}||'%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getSearchNoticeList" resultType="NoticeVO">
+		select b.* 
+		from ( 
+			select a.*, rownum as r 
+			from (
+				select * 
+				from notice 
+				<where>
+					<choose>
+						<when test="type=='title_content' or type==null">
+							title like '%'||#{data}||'%' or content like '%'||#{data}||'%'
+						</when>
+						<otherwise>
+							${type} like '%'||#{data}||'%'
+						</otherwise>
+					</choose>
+				</where>
+				order by notice_number desc
+				) a
+			) b
+		where r between #{start} and #{end} and category = #{category}
+	</select>
+	
+	<insert id="insertNotice">
+		insert into notice
+		values(notice_index_seq.nextval, #{writer}, sysdate, #{title}, #{content}, #{category}, #{filename})
+	</insert>
+	
+	<select id="getNotice" resultType="NoticeVO">
+		select * 
+		from notice 
+		where notice_number = #{notice_number}
+	</select>
+	
+	<update id="updateNotice">
+		update notice 
+		set title = #{title}, category = #{category}, content = #{content}
+		<if test="filename!=null">
+			, filename = #{filename}
+		</if> 
+		where notice_number = #{notice_number}
+	</update>
+	
+	<delete id="deleteNotice">
+		delete 
+		from notice 
+		where notice_number = #{notice_number}
+	</delete>
+</mapper>

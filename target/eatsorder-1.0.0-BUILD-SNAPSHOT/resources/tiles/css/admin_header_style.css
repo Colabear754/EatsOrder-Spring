@@ -1,0 +1,56 @@
+/* 헤더 탑 */
+/* header top- 로고,찜 아이콘 컨테이너 */
+.header_top {
+    background-color: #FF9F00;
+    height: 70px;
+}
+
+.header_box {
+    margin: 0 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 헤더 전체버튼 하이퍼링크 */
+.header_top a {
+    text-decoration: none;
+    color: #FF9F00;
+}
+
+#logo_img {
+	margin-top: 15px;
+    filter: invert(18%) sepia(91%) saturate(2760%) hue-rotate(9deg) brightness(94%) contrast(106%);
+}
+
+/* ------------------------------------------------------------------ */
+
+/* 찜,마이페이지,로그인 */
+.icon_menu {
+    display: inline-block;
+    margin: 0;
+}
+
+
+.icon_menu > li {
+    box-sizing: border-box;
+    list-style: none;
+    float: right;
+    width: 118px;
+    height: 46px;
+    border-radius: 8px;
+    text-align: center;
+    padding-top: 10px;
+    margin: 10px;
+    background-color: #D1F600;
+    box-shadow: 0 4px 10px #ff9d0083;
+}
+
+.icon_menu::after {
+	display: inline-block;
+    content: "관리자 페이지";
+    color: #D1F600;
+    font-weight: bolder;
+    font-size: 17pt;
+    margin-top: 13px;
+}

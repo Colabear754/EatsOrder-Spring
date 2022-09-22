@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.ky.eatsorder.mapper.RestaurantMapper">
+	<select id="getRestaurant" resultType="RestaurantVO">
+		select * 
+		from restaurant 
+		where rst_id = #{rst_id}
+	</select>
+	
+	<select id="getRestaurantList" resultType="RestaurantVO">
+		select a.* 
+		from (
+			select rownum r, b.* 
+			from (
+			<choose>
+				<when test="orderBy==2">
+					select rst.* 
+					from restaurant rst, delivery_zone dz, v_rst_rating vrr 
+					where rst.rst_id = vrr.rst_id and rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname} and rst_name like '%'||#{searchText}||'%'
+					<if test="category_id>0">
+						and category_id = #{category_id}
+					</if>
+					order by avg_rating desc) b) a
+				</when>
+				<when test="orderBy==3">
+					select rst.* 
+					from restaurant rst, delivery_zone dz, v_rst_review_count vrrc 
+					where rst.rst_id = vrrc.rst_id and rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname} and rst_name like '%'||#{searchText}||'%'
+					<if test="category_id>0">
+						and category_id = #{category_id}
+					</if> 
+					order by review_count desc) b) a
+				</when>
+				<when test="orderBy==4">
+					select rst.* 
+					from restaurant rst, delivery_zone dz 
+					where rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname} and rst_name like '%'||#{searchText}||'%'
+					<if test="category_id>0">
+						and category_id = #{category_id}
+					</if> 
+					order by min_order asc) b) a
+				</when>
+				<otherwise>
+					select rst.* 
+					from restaurant rst, delivery_zone dz 
+					where rst.rst_id = dz.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname} and rst_name like '%'||#{searchText}||'%') b
+					<if test="category_id>0">
+						and category_id = #{category_id}
+					</if> 
+					) a 
+				</otherwise>
+			</choose>
+		<![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="isFavorite" resultType="_boolean">
+		select case when count(*) > 0 then 1 else 0 end result
+		from favorite_restaurant 
+		where email = #{email} and rst_id = #{rst_id}
+	</select>
+	
+	<insert id="registFavoriteRestaurant">
+		insert into 
+		favorite_restaurant values(#{email}, #{rst_id})
+	</insert>
+	
+	<delete id="removeFavoriteRestaurant">
+		delete 
+		from favorite_restaurant 
+		where email = #{email} and rst_id = #{rst_id}
+	</delete>
+	
+	<select id="getFavoriteRestaurants" resultType="RestaurantVO">
+		select rst.* 
+		from restaurant rst, favorite_restaurant fr 
+		where email = #{email} and rst.rst_id = fr.rst_id
+	</select>
+	
+	<select id="getRating" resultType="_double">
+		select avg_rating 
+		from v_rst_rating 
+		where rst_id = #{rst_id}
+	</select>
+	
+	<select id="getRestaurantOfMenu" resultType="RestaurantVO">
+		select r.* 
+		from restaurant r, menu_category mc, menu m 
+		where menu_id = #{menu_id} and m.category_id = mc.category_id and mc.rst_id = r.rst_id
+	</select>
+	
+	<select id="getRestaurantCount" resultType="_int">
+		select count(r.rst_id) 
+		from restaurant r, delivery_zone d 
+		where r.rst_id = d.rst_id and sido = #{sido} and sigungu = #{sigungu} and bname = #{bname}
+		<if test="searchText!=null">
+			and rst_name like '%'||#{searchText}||'%'
+		</if>
+		<if test="category_id>0">
+			and category_id = #{category_id}
+		</if>
+	</select>
+</mapper>

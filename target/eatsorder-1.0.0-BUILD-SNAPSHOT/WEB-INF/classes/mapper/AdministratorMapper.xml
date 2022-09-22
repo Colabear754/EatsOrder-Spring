@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.ky.eatsorder.mapper.AdministratorMapper">
+	<select id="login" resultType="_boolean">
+		select case when count(*) > 0 then 1 else 0 end result
+		from administrator 
+		where admin_id=#{admin_id} and password=pkg_crypto.encrypt(#{password})
+	</select>
+</mapper>
