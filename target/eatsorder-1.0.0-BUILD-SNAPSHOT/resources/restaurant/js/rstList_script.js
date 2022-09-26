@@ -97,7 +97,7 @@ $(function() {
 		$('#pageNum').val(Number($('#pageNum').val()) + 1);
 		
 		$.ajax({
-			type: "POST",
+			type: "GET",
 			url: "/eatsorder/restaurant/morelist",
 			data: {
 				"sido": $('#sido').val(),
@@ -107,18 +107,7 @@ $(function() {
 			},
 			success: function(data) {
 				$('.outer-grid').append(data);
-//				total_list += data;
-//				history.replaceState(
-//						{
-//							list: total_list, 
-//							page: $('#pageNum').val(),
-//							address: $('#address').val(),
-//							sido: $('#sido').val(),
-//							sigungu: $('#sigungu').val(),
-//							bname: $('#bname').val()
-//						}, 
-//						'page ' + $('#pageNum').val(), 
-//						'/EatsOrder/restaurant/rstList.do##');
+				history.pushState(null, null, $(location).attr('href'));
 				toggleMoreBtn();
 			},
 			error: function(request) {
