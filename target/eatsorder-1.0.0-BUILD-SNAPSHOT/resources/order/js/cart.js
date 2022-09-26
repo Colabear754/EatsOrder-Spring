@@ -37,7 +37,7 @@ $(function() {
 		} else {	// 로그인 되어있으면 주문하기 화면으로 이동
 			var newForm = $('<form></form>');
 			newForm.attr('method', 'post');
-			newForm.attr('action', '/eatsorder/order/order');
+			newForm.attr('action', '/eatsorder/order/new_order');
 			// 폼에 항목 추가
 			newForm.append($('<input>', {type: 'hidden', name: 'address', value: $('#address').val()}));
 			newForm.append($('<input>', {type: 'hidden', name: 'rst_id', value: $('#rst_id').val()}));

@@ -17,18 +17,20 @@
 						<div class="order_box2">
 							<h4>${order.ORDER_NUMBER}</h4>
 							<h3>
-								<a href="/eatsorder/restaurant/info?rst_id=${order.RST_ID}">${order.RST_NAME}<span>></span></a> <span class="order_status"> <c:choose>
+								<a href="/eatsorder/restaurant/info?rst_id=${order.RST_ID}">${order.RST_NAME}<span>></span></a>
+								<span class="order_status">
+									<c:choose>
 										<c:when test="${order.PAYMENT_STATUS == 0}">주문 취소</c:when>
-										<c:when test="${order.ELAPSED_TIME < (1 / 60) * 5}">주문 접수 대기</c:when>
-										<c:when test="${order.ELAPSED_TIME >= (1 / 60) * 5 && order.ELAPSED_TIME < (1 / 60) * 15 }">메뉴 준비 중</c:when>
-										<c:when test="${order.ELAPSED_TIME >= (1 / 60) * 15 && order.ELAPSED_TIME < (1 / 60) * 25}">배달 중</c:when>
+										<c:when test="${order.elapsed_time < 5}">주문 접수 대기</c:when>
+										<c:when test="${order.elapsed_time >= 5 && order.ELAPSED_TIME < 15 }">메뉴 준비 중</c:when>
+										<c:when test="${order.elapsed_time >= 15 && order.ELAPSED_TIME < 25}">배달 중</c:when>
 										<c:otherwise>배달 완료</c:otherwise>
 									</c:choose>
 								</span>
 							</h3>
-							<c:if test="${order.ELAPSED_TIME < 1 && order.PAYMENT_STATUS != 0}">
+							<c:if test="${order.elapsed_time < 5 && order.PAYMENT_STATUS != 0}">
 								<div class="del_btn">
-									<a href="/eatsorder/order/cancel_order?order_number=${order.ORDER_NUMBER}">주문 취소</a>
+									<a href="/eatsorder/order/cancel?order_number=${order.ORDER_NUMBER}">주문 취소</a>
 								</div>
 							</c:if>
 							<div class="order_img2">

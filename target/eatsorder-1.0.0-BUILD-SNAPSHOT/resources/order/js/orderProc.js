@@ -5,7 +5,7 @@ $(function() {
 	} else {
 		var newForm = $('<form></form>');
 		newForm.attr('method', 'post');
-		newForm.attr('action', '/EatsOrder/order/orderResult.do');
+		newForm.attr('action', '/eatsorder/order/result');
 		// 폼에 항목 추가
 		newForm.append($('<input>', {type: 'hidden', name: 'order_number', value: $('#order_number').val()}));
 		newForm.append($('<input>', {type: 'hidden', name: 'rst_id', value: $('#rst_id').val()}));

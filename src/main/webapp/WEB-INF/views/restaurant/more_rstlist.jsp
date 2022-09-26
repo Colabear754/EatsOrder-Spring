@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:forEach var="rstData" items="${rstData}"> 
-    <a href="/EatsOrder/restaurant/rst_form.do" class="rst-link" id="${rstData.restaurant.rst_id}">
+    <a href="/eatsorder/restaurant/info" class="rst-link" id="${rstData.restaurant.rst_id}">
 	    <div class="rst_photo"><img src="/eatsorder/resources/restaurant/img/${rstData.restaurant.rst_photo}" width="300px" height="200px"></div>
 	    <div class="inner-grid">
 	        <div class="rst_logo"><img src="/eatsorder/resources/restaurant/img/${rstData.restaurant.rst_logo}"></div>
