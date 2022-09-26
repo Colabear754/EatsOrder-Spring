@@ -20,9 +20,9 @@
 								<a href="/eatsorder/restaurant/info?rst_id=${order.RST_ID}">${order.RST_NAME}<span>></span></a>
 								<span class="order_status">
 									<c:choose>
-										<c:when test="${order.PAYMENT_STATUS == 0}">주문 취소</c:when>
-										<c:when test="${order.elapsed_time < 5}">주문 접수 대기</c:when>
-										<c:when test="${order.elapsed_time >= 5 && order.ELAPSED_TIME < 15 }">메뉴 준비 중</c:when>
+										<c:when test="${order.ORDER_STATUS == 0}">주문 취소</c:when>
+										<c:when test="${order.elapsed_time < 1}">주문 접수 대기</c:when>
+										<c:when test="${order.elapsed_time >= 1 && order.ELAPSED_TIME < 15 }">메뉴 준비 중</c:when>
 										<c:when test="${order.elapsed_time >= 15 && order.ELAPSED_TIME < 25}">배달 중</c:when>
 										<c:otherwise>배달 완료</c:otherwise>
 									</c:choose>

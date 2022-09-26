@@ -7,7 +7,7 @@ $(function() {
 	// 페이지가 로드되면 주문표 출력
 	$.ajax({
 		type: "POST",
-		url: "/EatsOrder/order/cart.do",
+		url: "/eatsorder/order/cart",
 		data: "isOrderForm=true",
 		success: function(data) {
 			$('#cart-area').html(data);
@@ -51,7 +51,7 @@ $(function() {
     	} else {
     		$.ajax({
     			type: "POST",
-    			url: "/EatsOrder/order/cart.do",
+    			url: "/eatsorder/order/cart",
     			data: {
     				"isOrderForm": true,
     				"using_point": using_point

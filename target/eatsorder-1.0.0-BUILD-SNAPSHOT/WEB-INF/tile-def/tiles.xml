@@ -311,4 +311,34 @@
 
     <!-- 장바구니 메뉴 수량 변경 -->
     <definition name="order/update_cart" template="/WEB-INF/views/component/check.jsp"/>
+
+    <!-- 주문하기 페이지 -->
+    <definition name="order/new_order" extends="base">
+        <put-attribute name="title" value="주문하기"/>
+        <put-attribute name="css" value="/resources/order/css/orderForm.css"/>
+        <put-attribute name="js" value="/resources/order/js/orderForm.js"/>
+        <put-attribute name="body" value="/WEB-INF/views/order/orderForm.jsp"/>
+    </definition>
+
+    <!-- 주문진행 -->
+    <definition name="order/order_process" template="/WEB-INF/views/order/orderProc.jsp"/>
+
+    <!-- 주문 결과 -->
+    <definition name="order/result" extends="base">
+        <put-attribute name="title" value="주문결과"/>
+        <put-attribute name="css" value="/resources/order/css/orderResult.css"/>
+        <put-attribute name="js" value="/resources/order/js/orderResult.js"/>
+        <put-attribute name="body" value="/WEB-INF/views/order/orderResult.jsp"/>
+    </definition>
+
+    <!-- 주문 취소 페이지 -->
+    <definition name="order/cancel" extends="base">
+        <put-attribute name="title" value="주문취소"/>
+        <put-attribute name="css" value="/resources/order/css/cancelOrderForm.css"/>
+        <put-attribute name="js" value="/resources/order/js/cancelOrderForm.js"/>
+        <put-attribute name="body" value="/WEB-INF/views/order/cancelorder.jsp" />
+    </definition>
+
+    <!-- 주문 취소 -->
+    <definition name="order/cancel_order" template="/WEB-INF/views/component/check.jsp"/>
 </tiles-definitions>

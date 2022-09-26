@@ -2,6 +2,7 @@ package com.ky.eatsorder.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int insertCartItemOptions(int[] options) {
+	public int insertCartItemOptions(List<String> options) {
 		// 장바구니에 메뉴 추가 2단계(옵션 추가)
 		return mapper.insertCartItemOptions(options);
 	}
@@ -95,7 +96,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int insertOrder_detail(HashMap<String, String> map) {
+	public int insertOrder_detail(HashMap<String, Object> map) {
 		// 주문하기 2단계(주문상세 등록)
 		int result = mapper.insertOrder_detail(map);
 		System.out.println("주문상세 등록 결과 : " + result);
@@ -113,13 +114,19 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean isCancelable(HashMap<String, String> map) {
+	public boolean isCancelable(HashMap<String, Object> map) {
 		// 취소 가능한 주문인지 확인
 		return mapper.isCancelable(map);
 	}
 
 	@Override
-	public int cancelOrder(HashMap<String, String> map) {
+	public String getPay_date(String order_number) {
+		// 주문번호의 결제시간 조회
+		return mapper.getPay_date(order_number);
+	}
+
+	@Override
+	public int cancelOrder(HashMap<String, Object> map) {
 		// 주문취소
 		int result = mapper.cancelOrder(map);
 		System.out.println("주문취소 결과 : " + result);

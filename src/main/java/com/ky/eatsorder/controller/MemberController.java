@@ -104,7 +104,7 @@ public class MemberController {
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
     public String regist(@RequestParam HashMap<String, Object> params, Model model) {
         // 회원가입
-        if (((String) params.get("phone")).indexOf("-") < 0) { // 전화번호에 하이픈(-)이 없는 형식일 경우 하이픈을 넣음
+        if (!((String) params.get("phone")).contains("-")) { // 전화번호에 하이픈(-)이 없는 형식일 경우 하이픈을 넣음
             params.put("phone", ((String) params.get("phone")).replaceAll("(\\d{3})(\\d{3,4})(\\d{4})", "$1-$2-$3"));
         }
 
@@ -144,7 +144,7 @@ public class MemberController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@RequestParam HashMap<String, Object> params, Model model) {
         // 회원정보 수정
-        if (((String) params.get("phone")).indexOf("-") < 0) { // 전화번호에 하이픈(-)이 없는 형식일 경우 하이픈을 넣음
+        if (!((String) params.get("phone")).contains("-")) { // 전화번호에 하이픈(-)이 없는 형식일 경우 하이픈을 넣음
             params.put("phone", ((String) params.get("phone")).replaceAll("(\\d{3})(\\d{3,4})(\\d{4})", "$1-$2-$3"));
         }
 
@@ -295,7 +295,6 @@ public class MemberController {
             order.put("elapsed_time", elapsed_time);
             order.put("MENU_NAME", orderedMenuString);
         }
-
         model.addAttribute("member", member);
         model.addAttribute("coupon_count", coupon_count);
         model.addAttribute("orderList", orderList);

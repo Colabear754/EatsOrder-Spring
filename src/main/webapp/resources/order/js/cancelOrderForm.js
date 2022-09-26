@@ -10,7 +10,7 @@ $(function() {
 		} else {
 			$.ajax({
 				type: "POST",
-				url: "/EatsOrder/order/cancelOrder.do",
+				url: "/eatsorder/order/cancel_order",
 				data: {
 					"order_number": order_number,
 					"reason_cancellation": reason_cancellation
@@ -18,7 +18,7 @@ $(function() {
 				success: function(result) {
 					if (result > 0) {
 						swal("주문이 취소되었습니다.", "", "success").then(() => {
-							location.href = "/EatsOrder/member/orderList.do";
+							location.href = "/eatsorder/member/orderlist";
 						})
 					} else {
 						swal("주문이 접수되어 취소가 불가능합니다. 매장에 직접 문의해주세요.", "", "error");

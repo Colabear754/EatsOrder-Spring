@@ -20,7 +20,7 @@
 		)
 	</select> -->
 	
-	<select id="isExistItem" resultType="boolean">
+	<select id="isExistItem" resultType="_boolean">
 		select case when count(*) > 0 then 1 else 0 end result
 		from cart 
 		where orderer = #{orderer} and menu_id = #{menu_id}
@@ -39,9 +39,12 @@
 	</insert>
 	
 	<update id="insertCartItemOptions">
-		<foreach collection="array" item="options" open="insert all" close="select * from dual" separator=" ">
+		<selectKey keyProperty="bundle_id" order="BEFORE" resultType="long">
+			select last_number - 1 from user_sequences where sequence_name = 'SELECTED_OPTION_SEQ'
+		</selectKey>
+		<foreach collection="list" item="options" open="insert all" close="select * from dual" separator=" ">
 			into selected_option
-			values(selected_option_seq.currval, #{options})
+			values(#{bundle_id}, #{options})
 		</foreach>
 	</update>
 	
@@ -92,6 +95,12 @@
 		select case when count(*) > 0 then 1 else 0 end result
 		from order_history
 		where order_number = #{order_number} and orderer = #{orderer} and order_status = 1
+	</select>
+
+	<select id="getPay_date" resultType="String">
+		select pay_date
+		from order_history
+		where order_number = #{order_number}
 	</select>
 	
 	<update id="cancelOrder">
