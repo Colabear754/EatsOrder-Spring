@@ -17,3 +17,4 @@
 	    </div>
 	</a>
 </c:forEach>
+<script src="<c:url value="/resources/restaurant/js/more_rst_list.js"/>"></script>
